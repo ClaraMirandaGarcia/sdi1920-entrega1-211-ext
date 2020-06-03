@@ -13,6 +13,10 @@
 						class="glyphicon glyphicon-user"></span> <span
 						th:text="#{Nav.register}"></span>
 				</a></li>
+				<li sec:authorize="!isAuthenticated()"><a id=loginButton href="/login"> <span
+							class="glyphicon glyphicon-user"></span>
+						<span th:text="#{Nav.login}"></span>
+					</a></li>
 				<li sec:authorize="isAuthenticated()"><a href="/logout"> <span
 						class="glyphicon glyphicon-log-out"></span> <span
 						th:text="#{Nav.logout}"></span>
