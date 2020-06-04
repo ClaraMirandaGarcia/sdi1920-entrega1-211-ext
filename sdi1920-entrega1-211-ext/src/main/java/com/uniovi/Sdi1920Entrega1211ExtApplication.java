@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MySocialNetworkApplication {
+public class Sdi1920Entrega1211ExtApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MySocialNetworkApplication.class, args);
+		SpringApplication.run(Sdi1920Entrega1211ExtApplication.class, args);
 	}
 
 }

@@ -1,6 +1,13 @@
 package com.uniovi.controllers;
 
+import java.util.LinkedList;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +36,19 @@ public class UsersController {
 	@Autowired
 	private SignUpFormValidator signUpFormValidator;
 
+	@RequestMapping("/user/list")
+	public String getListado(Model model, Pageable pageable) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		Page<User> users = new PageImpl<User>(new LinkedList<User>());
+		users = usersService.getUsersFor(pageable, email);
+		model.addAttribute("usersList", users.getContent());
+		model.addAttribute("page", users);
+		return "user/list";
+	}
+	
+
+	// Basic methods of the application
 	@RequestMapping(value = { "/home" }, method = RequestMethod.GET)
 	public String home() {
 		return "home";
@@ -51,7 +71,7 @@ public class UsersController {
 		securityService.autoLogin(user.getEmail(), user.getPasswordConfirm());
 		return "redirect:home";
 	}
-	
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model, String error, String logout) {
 		if (error != null)
