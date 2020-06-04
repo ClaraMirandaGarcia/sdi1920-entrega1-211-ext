@@ -4,40 +4,29 @@
 <head th:replace="fragments/head" />
 
 <body>
+	<!-- Barra de navegación superior -->
 	<nav th:replace="fragments/nav" />
 	<div class="container">
-		<h2 th:text="#{Users.message}"></h2>
-		<form class="navbar-form" action="/user/list">
-			<div class="form-group">
-				<input name="searchText" type="text" class="form-control" size="50"
-					placeholder="Buscar por nombre o apellidos">
-			</div>
-			<button type="submit" class="btn btn-default">Buscar</button>
-		</form>
-		<p th:text="#{Users.list}"></p>
-		<form method="post" action="/user/delete">
-			<div class="table-responsive">
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th th:text="#{Name.message}"></th>
-							<th th:text="#{Email.message}"></th>
-							<th>Invitacion</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr id="userRow" th:each="user : ${usersList}">
-							<td th:text="${user.name}"></td>
-							<td class=emailData th:text="${user.email}"></td>
-							<td><a th:href="${'/invitation/add/' + user.id}">enviar</a></td>
-						</tr>
-					</tbody>
-				</table>
+		<h2>Invitaciones</h2>
+		<form class="navbar-form" action="/invitation/list"></form>
+		<p>Has recibido invitaciones de amistad de:</p>
+		<div class="table-responsive">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Email</th>
+						<th class="col-md-1"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="invitation : ${invitationsList}">
+						<td th:text="${invitation}"></td>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 
-			</div>
-		</form>
-		<footer sec:authorize="hasRole('ROLE_USER')"
-			th:replace="fragments/pagination"></footer>
 	</div>
 	<footer th:replace="fragments/footer" />
 </body>
