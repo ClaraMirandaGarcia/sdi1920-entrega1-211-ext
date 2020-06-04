@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.uniovi.entities.User;
 import com.uniovi.services.RolesService;
@@ -37,13 +38,22 @@ public class UsersController {
 	private SignUpFormValidator signUpFormValidator;
 
 	@RequestMapping("/user/list")
-	public String getListado(Model model, Pageable pageable) {
+	public String getListado(Model model, Pageable pageable, @RequestParam(value = "", required = false) String searchText) {
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
 		Page<User> users = new PageImpl<User>(new LinkedList<User>());
 		users = usersService.getUsersFor(pageable, email);
+		
+		if (searchText != null && !searchText.isEmpty()) {
+            users = usersService.searchByNameSurnameOrEmail(pageable, searchText, email);
+        } else {
+            users = usersService.getUsersFor(pageable, email);
+        }
+		
 		model.addAttribute("usersList", users.getContent());
 		model.addAttribute("page", users);
+		
 		return "user/list";
 	}
 	

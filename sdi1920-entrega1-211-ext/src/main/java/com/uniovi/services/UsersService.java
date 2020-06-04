@@ -51,4 +51,11 @@ public class UsersService {
 		users = usersRepository.getUsersFor(pageable, email);
 		return users;
 	}
+
+	public Page<User> searchByNameSurnameOrEmail(Pageable pageable, String searchText, String email) {
+        Page<User> users = new PageImpl<User>(new LinkedList<User>());
+        searchText = "%" + searchText + "%";
+        users = usersRepository.searchByNameSurnameOrEmail(pageable, searchText, email);
+        return users;
+    }
 }
