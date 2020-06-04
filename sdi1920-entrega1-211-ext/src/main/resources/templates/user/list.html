@@ -22,13 +22,14 @@
 						<tr>
 							<th th:text="#{Name.message}"></th>
 							<th th:text="#{Email.message}"></th>
+							<th>Invitacion</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr id="userRow" th:each="user : ${usersList}">
 							<td th:text="${user.name}"></td>
 							<td class=emailData th:text="${user.email}"></td>
-
+							<td><a th:href="${'/invitation/add/' + user.id}">enviar</a></td>
 						</tr>
 					</tbody>
 				</table>

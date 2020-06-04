@@ -8,7 +8,7 @@ import com.uniovi.entities.IdFriendship;
 
 public interface FriendshipInvitationsRepository extends CrudRepository<FriendshipInvitation, IdFriendship> {
 
-	@Query("SELECT u FROM User u where u.email IN (select f.id.userEmailFor from Friend f where f.id.userEmailTo=?1 and f.id.userEmailFor=?2)"
-            + " OR  u.email IN (select f.id.userEmailTo from Friend f where f.id.userEmailFor=?1 and f.id.userEmailTo=?1)")
+	@Query("select f from FriendshipInvitation f where (f.id.userEmailTo=?1 and f.id.userEmailFrom=?2) OR "
+            + " (f.id.userEmailFrom=?1 and f.id.userEmailTo=?1)")
     FriendshipInvitation getInvitationEmails(String email1, String email2);
 }

@@ -51,6 +51,9 @@ public class UsersController {
             users = usersService.getUsersFor(pageable, email);
         }
 		
+		//Check if already an invitation
+		//Check if already a friend
+		
 		model.addAttribute("usersList", users.getContent());
 		model.addAttribute("page", users);
 		
