@@ -6,20 +6,20 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class IdFriendship implements Serializable {
-	private String userEmailFor;
+	private String userEmailFrom;
 	private String userEmailTo;
 
 	public IdFriendship() {
 	}
 
-	public IdFriendship(String userEmailFor, String userEmailTo) {
+	public IdFriendship(String userEmailFrom, String userEmailTo) {
 		super();
-		this.userEmailFor = userEmailFor;
+		this.userEmailFrom = userEmailFrom;
 		this.userEmailTo = userEmailTo;
 	}
 
-	public String getUserEmailFor() {
-		return userEmailFor;
+	public String getUserEmailFrom() {
+		return userEmailFrom;
 	}
 
 	public String getUserEmailTo() {

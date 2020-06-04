@@ -1,0 +1,14 @@
+package com.uniovi.repositories;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+
+import com.uniovi.entities.FriendshipInvitation;
+import com.uniovi.entities.IdFriendship;
+
+public interface FriendshipInvitationsRepository extends CrudRepository<FriendshipInvitation, IdFriendship> {
+
+	@Query("SELECT u FROM User u where u.email IN (select f.id.userEmailFor from Friend f where f.id.userEmailTo=?1 and f.id.userEmailFor=?2)"
+            + " OR  u.email IN (select f.id.userEmailTo from Friend f where f.id.userEmailFor=?1 and f.id.userEmailTo=?1)")
+    FriendshipInvitation getInvitationEmails(String email1, String email2);
+}
