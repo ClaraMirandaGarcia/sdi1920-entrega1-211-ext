@@ -1,9 +1,13 @@
 package com.uniovi.services;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.uniovi.entities.FriendshipInvitation;
@@ -36,6 +40,12 @@ public class FriendshipInvitationService {
 
 	public FriendshipInvitation getInvitationEmails(String emailFrom, String emailTo) {
 		return fiRepository.getInvitationEmails(emailFrom, emailTo);
+	}
+
+	public Page<FriendshipInvitation> getInvitationsByEmailFrom(Pageable pageable, String email) {
+		Page<FriendshipInvitation> users = new PageImpl<FriendshipInvitation>(new LinkedList<FriendshipInvitation>());
+		users = fiRepository.getInvitationsFor(pageable, email);
+		return users;
 	}
 
 }

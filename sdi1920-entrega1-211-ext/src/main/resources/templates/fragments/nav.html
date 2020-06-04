@@ -8,24 +8,32 @@
 			</button>
 		</div>
 		<div class="collapse navbar-collapse" id="myNavbar">
-		    <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
-		    <li id="menu-users" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> <span
-							th:text="#{Users.menu.message}"></span> <span class="caret"></span>
-					</a>
+			<ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
+				<li id="menu-users" class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#"> <span
+						th:text="#{Users.menu.message}"></span> <span class="caret"></span>
+				</a>
 					<ul class="dropdown-menu">
 						<li><a href="/user/list"> <span th:text="#{Users.list}"></span></a></li>
-					</ul>
-				</li>
-		    </ul>
+					</ul></li>
+
+				<li id="menu-invitations" class="dropdown"><a
+					class="dropdown-toggle" data-toggle="dropdown" href="#"> <span></span>
+						<span class="caret">Gestion Invitaciones</span>
+				</a>
+					<ul class="dropdown-menu">
+						<li><a href="/invitation/list"> <span >Invitaciones</span></a></li>
+					</ul></li>
+			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<li sec:authorize="!isAuthenticated()"><a href="/signup"> <span
 						class="glyphicon glyphicon-user"></span> <span
 						th:text="#{Nav.register}"></span>
 				</a></li>
-				<li sec:authorize="!isAuthenticated()"><a id=loginButton href="/login"> <span
-							class="glyphicon glyphicon-user"></span>
-						<span th:text="#{Nav.login}"></span>
-					</a></li>
+				<li sec:authorize="!isAuthenticated()"><a id=loginButton
+					href="/login"> <span class="glyphicon glyphicon-user"></span> <span
+						th:text="#{Nav.login}"></span>
+				</a></li>
 				<li sec:authorize="isAuthenticated()"><a href="/logout"> <span
 						class="glyphicon glyphicon-log-out"></span> <span
 						th:text="#{Nav.logout}"></span>

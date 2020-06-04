@@ -1,6 +1,11 @@
 package com.uniovi.controllers;
 
+import java.util.LinkedList;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -24,6 +29,20 @@ public class FriendshipInvitationController {
 	@Autowired
 	private UsersService usersService;
 
+	@RequestMapping("/invitation/list")
+	public String getListado(Model model, Pageable pageable) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String emailFrom = auth.getName();
+		Page<FriendshipInvitation> invitations = new PageImpl<FriendshipInvitation>(
+				new LinkedList<FriendshipInvitation>());
+
+		invitations = invitationsService.getInvitationsByEmailFrom(pageable, emailFrom);
+
+		model.addAttribute("invitationsList", invitations.getContent());
+		model.addAttribute("page", invitations);
+		return "invitation/list";
+	}
+
 	@RequestMapping(value = "/invitation/add/{id}", method = RequestMethod.GET)
 	public String setInvitation(Model model, @PathVariable Long id) {
 		FriendshipInvitation invitation = new FriendshipInvitation();
@@ -35,7 +54,7 @@ public class FriendshipInvitationController {
 		String emailTo = userTo.getEmail();
 
 		// check if userFrom && userTo -> friends
-		
+
 		// check if the invitation userFrom && userTo or userTo && userFrom exists
 		FriendshipInvitation checkExists = invitationsService.getInvitationEmails(emailFrom, emailTo);
 
