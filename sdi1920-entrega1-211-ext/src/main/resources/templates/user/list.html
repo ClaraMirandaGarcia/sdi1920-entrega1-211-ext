@@ -12,9 +12,11 @@
 				<input name="searchText" type="text" class="form-control" size="50"
 					th:placeholder="#{Placeholder.searchByNameSurname}">
 			</div>
-			<button type="submit" class="btn btn-default" th:text=#{Search.message}></button>
+			<button type="submit" class="btn btn-default"
+				th:text=#{Search.message}></button>
 		</form>
 		<p th:text="#{Users.list}"></p>
+
 		<form method="post" action="/user/delete">
 			<div class="table-responsive">
 				<table class="table table-hover">
@@ -29,10 +31,20 @@
 						<tr id="userRow" th:each="user : ${usersList}">
 							<td th:text="${user.name}"></td>
 							<td class=emailData th:text="${user.email}"></td>
-							<td><a th:text="#{Send.message}" th:href="${'/invitation/add/' + user.id}"></a></td>
+							<td><a sec:authorize="hasRole('ROLE_USER')"
+								th:text="#{Send.message}"
+								th:href="${'/invitation/add/' + user.id}"></a></td>
+							<td sec:authorize="hasRole('ROLE_ADMIN')"><input
+								th:id="'eliminar'+${user.email}" name="userDelete"
+								th:value="${user.email}" type="checkbox" />Eliminar</td>
 						</tr>
 					</tbody>
 				</table>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-primary">Eliminar</button>
+					</div>
+				</div>
 
 			</div>
 		</form>
