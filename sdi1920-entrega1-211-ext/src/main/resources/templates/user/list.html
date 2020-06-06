@@ -10,9 +10,9 @@
 		<form class="navbar-form" action="/user/list">
 			<div class="form-group">
 				<input name="searchText" type="text" class="form-control" size="50"
-					placeholder="Buscar por nombre o apellidos">
+					th:placeholder="#{Placeholder.searchByNameSurname}">
 			</div>
-			<button type="submit" class="btn btn-default">Buscar</button>
+			<button type="submit" class="btn btn-default" th:text=#{Search.message}></button>
 		</form>
 		<p th:text="#{Users.list}"></p>
 		<form method="post" action="/user/delete">
@@ -22,14 +22,14 @@
 						<tr>
 							<th th:text="#{Name.message}"></th>
 							<th th:text="#{Email.message}"></th>
-							<th>Invitacion</th>
+							<th th:text="#{Invitation.message}"></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr id="userRow" th:each="user : ${usersList}">
 							<td th:text="${user.name}"></td>
 							<td class=emailData th:text="${user.email}"></td>
-							<td><a th:href="${'/invitation/add/' + user.id}">enviar</a></td>
+							<td><a th:text="#{Send.message}" th:href="${'/invitation/add/' + user.id}"></a></td>
 						</tr>
 					</tbody>
 				</table>

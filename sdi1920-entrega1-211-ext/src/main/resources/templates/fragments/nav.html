@@ -7,25 +7,60 @@
 					class="icon-bar"></span>
 			</button>
 		</div>
+
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
+				<!-- Usuarios -->
 				<li id="menu-users" class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <span
-						th:text="#{Users.menu.message}"></span> <span class="caret"></span>
+						th:text="#{Manage.users.message}"></span> <span class="caret"></span>
 				</a>
 					<ul class="dropdown-menu">
 						<li><a href="/user/list"> <span th:text="#{Users.list}"></span></a></li>
 					</ul></li>
 
+				<!-- Invitaciones -->
 				<li id="menu-invitations" class="dropdown"><a
 					class="dropdown-toggle" data-toggle="dropdown" href="#"> <span></span>
-						<span class="caret">Gestion Invitaciones</span>
+						<span class="caret" th:text="#{Manage.invitations.message}"></span>
 				</a>
 					<ul class="dropdown-menu">
-						<li><a href="/invitation/list"> <span >Invitaciones</span></a></li>
+						<li><a href="/invitation/list"> <span
+								th:text="#{Invitations.message}"></span></a></li>
+					</ul></li>
+
+				<!-- Amigos -->
+				<li id="menu-friends" class="dropdown"><a
+					class="dropdown-toggle" data-toggle="dropdown" href="#"> <span></span>
+						<span class="caret" th:text="#{Manage.friends.message}"></span>
+				</a>
+					<ul class="dropdown-menu">
+						<li><a href="/friend/list"> <span
+								th:text="#{Friends.message}"></span></a></li>
 					</ul></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
+
+				<!-- Idioma -->
+				<li class="dropdown"><a id="btnLanguage" href=" #"
+					class="dropdown-toggle" data-toggle="dropdown" role="button"
+					aria-haspopup="true" aria-expanded="false"> <span
+						th:text="#{language.change}"></span> <span class="caret"></span>
+				</a>
+					<ul id="languageDropdownMenuButton" class="dropdown-menu">
+						<li><a id="btnEnglish" value="EN"> <img
+								th:src="@{/img/if_uk_flag.png}"
+								style="border: 0; float: left; margin-right: 15px" /> <span
+								th:text="#{language.en}"></span>
+						</a></li>
+						<li><a id="btnSpanish" value="ES"> <img
+								th:src="@{/img/if_spain_flag.png}"
+								style="border: 0; float: left; margin-right: 15px" /> <span
+								th:text="#{language.es}"></span>
+						</a></li>
+					</ul></li>
+					
+					<!-- Registrarse, Login, Logout -->
 				<li sec:authorize="!isAuthenticated()"><a href="/signup"> <span
 						class="glyphicon glyphicon-user"></span> <span
 						th:text="#{Nav.register}"></span>

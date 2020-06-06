@@ -11,7 +11,7 @@
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="username" th:text="#{Email.message}"></label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control" name="username" placeholder="Ejemplo: ejemplo@gmail.com"
+					<input type="text" class="form-control" name="username" th:placeholder="#{Example.email.message}"
 						required="true" />
 
 				</div>
@@ -20,7 +20,7 @@
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="password" th:text="#{Password.message}"></label>
 				<div class="col-sm-10">
-					<input type="password" class="form-control" name="password" placeholder="Entre el Password"
+					<input type="password" class="form-control" name="password" th:placeholder="#{Example.password.message}"
 						required="true" /> <span th:text="${message}"></span> <span class="text-danger"
 						th:if="${error != null}" th:text="${error}">
 				</div>
