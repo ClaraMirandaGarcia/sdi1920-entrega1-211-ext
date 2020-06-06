@@ -1,6 +1,11 @@
 package com.uniovi.controllers;
 
+import java.util.LinkedList;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -29,6 +34,20 @@ public class FriendsController {
 	@Autowired
 	private FriendshipInvitationService friendshipService;
 
+	
+	@RequestMapping("/friend/list")
+	public String getListado(Model model, Pageable pageable) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		Page<User> friends = new PageImpl<User>(new LinkedList<User>());
+
+		friends = friendsService.getFriendsFor(pageable, email);
+
+		model.addAttribute("friendList", friends.getContent());
+		model.addAttribute("page", friends);
+		return "friend/list";
+	}
+	
 	@RequestMapping(value = "/friend/add/{email}", method = RequestMethod.GET)
 	public String setFriend(Model model, @PathVariable String email) {
 		Friend friend = new Friend();
