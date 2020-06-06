@@ -38,6 +38,17 @@
 						<li><a href="/friend/list"> <span
 								th:text="#{Friends.message}"></span></a></li>
 					</ul></li>
+					
+				<!-- Posts -->
+				<li sec:authorize="isAuthenticated()" id="menu-posts" class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#"> <span th:text="#{Manage.posts.message}"
+						></span> <span class="caret"></span>
+				</a>
+					<ul class="dropdown-menu">
+						<li><a href="/post/add"> <span
+								th:text="#{Comment.message}"></span></a></li>
+					</ul></li>
+				
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 
