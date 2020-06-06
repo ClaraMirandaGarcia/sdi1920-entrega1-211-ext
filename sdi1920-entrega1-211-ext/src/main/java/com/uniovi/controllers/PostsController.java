@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,11 +16,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.uniovi.entities.Post;
 import com.uniovi.entities.User;
+import com.uniovi.services.FriendsService;
 import com.uniovi.services.PostService;
 import com.uniovi.services.UsersService;
 import com.uniovi.validators.AddPostFormValidator;
@@ -30,10 +33,30 @@ public class PostsController {
 	@Autowired
 	private PostService postsService;
 	@Autowired
+	private FriendsService friendsService;
+	@Autowired
 	private UsersService usersService;
 	@Autowired
 	private AddPostFormValidator addPostValidator;
 
+	@RequestMapping("/post/postsOf/{email}")
+	public String getPostsOf(Model model, @PathVariable String email){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String emailAuth = auth.getName();
+		
+		if (friendsService.areFriends(email, emailAuth)) {
+			
+			User target = usersService.getUserByEmail(email);
+			List<Post> posts = postsService.getPostsListForUser(target);
+			model.addAttribute("friend", email);
+			model.addAttribute("posts", posts);
+			
+		}
+		
+		return "post/postsOf";
+	}
+	
+	
 	@RequestMapping("/post/list")
 	public String getList(Model model, Pageable pageable, Principal principal) {
 

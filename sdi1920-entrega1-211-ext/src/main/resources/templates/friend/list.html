@@ -18,10 +18,11 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="user : ${friendList}">
-						<td th:text="${user.name}"></td>
-						<td th:text="${user.lastName}"></td>
-						<td th:text="${user.email}"></td>
+					<tr th:each="friend : ${friendList}">
+						<td th:text="${friend.name}"
+							th:ref="${'/post/postsOf/' + friend.email"></td>
+						<td th:text="${friend.lastName}"></td>
+						<td th:text="${friend.email}"></td>
 					</tr>
 				</tbody>
 			</table>

@@ -23,9 +23,9 @@ public class PostService {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	public List<Post> getPosts() {
-		List<Post> users = new ArrayList<Post>();
-		postsRepository.findAll().forEach(users::add);
-		return users;
+		List<Post> posts = new ArrayList<Post>();
+		postsRepository.findAll().forEach(posts::add);
+		return posts;
 	}
 
 	public Post getPost(Long id) {
@@ -49,6 +49,12 @@ public class PostService {
 	public Page<Post> getPostsForUser(Pageable pageable, User user) {
 		Page<Post> posts = new PageImpl<Post>(new LinkedList<Post>());
 		posts = postsRepository.findAllByUser(pageable, user);
+		return posts;
+	}
+
+	public List<Post> getPostsListForUser(User user) {
+		List<Post> posts = new ArrayList<Post>();
+		posts = postsRepository.getPostsListFor(user);
 		return posts;
 	}
 

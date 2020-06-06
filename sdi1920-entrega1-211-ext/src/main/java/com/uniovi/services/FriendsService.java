@@ -38,11 +38,22 @@ public class FriendsService {
 	public void deleteFriend(IdFriend id) {
 		fiRepository.deleteById(id);
 	}
-	
+
 	public Page<User> getFriendsFor(Pageable pageable, String email) {
-        Page<User> friends = new PageImpl<User>(new LinkedList<User>());
-        friends = fiRepository.getFriendsFor(pageable, email);
-        return friends;
-    }
+		Page<User> friends = new PageImpl<User>(new LinkedList<User>());
+		friends = fiRepository.getFriendsFor(pageable, email);
+		return friends;
+	}
+
+	public boolean areFriends(String email, String emailAuth) {
+
+		List<User> friends = fiRepository.getFriendsListFor(emailAuth);
+		for (User user : friends) {
+			if (user.getEmail().equals(email)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }
