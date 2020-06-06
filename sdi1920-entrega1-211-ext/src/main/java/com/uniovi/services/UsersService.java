@@ -58,4 +58,12 @@ public class UsersService {
         users = usersRepository.searchByNameSurnameOrEmail(pageable, searchText, email);
         return users;
     }
+
+	public Page<User> searchByNameSurnameOrEmailAdmin(Pageable pageable, String searchText, String email) {
+		Page<User> users = new PageImpl<User>(new LinkedList<User>());
+        searchText = "%" + searchText + "%";
+        users = usersRepository.searchByNameSurnameOrEmailAdmin(pageable, searchText, email);
+        return users;
+	}
+	
 }

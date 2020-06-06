@@ -42,14 +42,26 @@ public class UsersController {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
+		User user = usersService.getUserByEmail(email);
+		
 		Page<User> users = new PageImpl<User>(new LinkedList<User>());
 		users = usersService.getUsersFor(pageable, email);
 		
-		if (searchText != null && !searchText.isEmpty()) {
-            users = usersService.searchByNameSurnameOrEmail(pageable, searchText, email);
-        } else {
-            users = usersService.getUsersFor(pageable, email);
-        }
+		//ROLE_USER
+		if(user.getRole().equals(rolesService.getRoles()[1])) {
+			if (searchText != null && !searchText.isEmpty()) {
+	            users = usersService.searchByNameSurnameOrEmail(pageable, searchText, email);
+	        } else {
+	            users = usersService.getUsersFor(pageable, email);
+	        }
+		} else if(user.getRole().equals(rolesService.getRoles()[0])) {
+			if (searchText != null && !searchText.isEmpty()) {
+	            users = usersService.searchByNameSurnameOrEmailAdmin(pageable, searchText, email);
+	        } else {
+	            users = new PageImpl<User>(usersService.getUsers());
+	        }
+		}
+		
 		
 		//Check if already an invitation
 		//Check if already a friend

@@ -18,4 +18,8 @@ public interface UsersRepository extends CrudRepository<User, Long> {
 			+ "(LOWER(u.name) LIKE LOWER(?1) OR LOWER(u.lastName) LIKE LOWER(?1) OR LOWER(u.email) LIKE LOWER(?1))")
 	Page<User> searchByNameSurnameOrEmail(Pageable pageable, String searchText, String email);
 
+	@Query("SELECT u FROM User u WHERE u.email <> ?2  AND"
+            + "(LOWER(u.name) LIKE LOWER(?1) OR LOWER(u.lastName) LIKE LOWER(?1) OR LOWER(u.email) LIKE LOWER(?1))")
+    Page<User> searchByNameSurnameOrEmailAdmin(Pageable pageable, String searchText, String email);
+
 }
