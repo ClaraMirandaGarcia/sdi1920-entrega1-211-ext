@@ -1,9 +1,14 @@
 package com.uniovi.controllers;
 
+import java.security.Principal;
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.LinkedList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -29,6 +34,20 @@ public class PostsController {
 	@Autowired
 	private AddPostFormValidator addPostValidator;
 
+	@RequestMapping("/post/list")
+	public String getList(Model model, Pageable pageable, Principal principal) {
+
+		String email = principal.getName();
+		User user = usersService.getUserByEmail(email);
+
+		Page<Post> posts = new PageImpl<Post>(new LinkedList<Post>());
+		posts = postsService.getPostsForUser(pageable, user);
+
+		model.addAttribute("postsList", posts.getContent());
+		model.addAttribute("page", posts);
+		return "post/list";
+	}
+
 	@RequestMapping(value = "/post/add", method = RequestMethod.POST)
 	public String setPost(@Validated Post post, BindingResult result) {
 		addPostValidator.validate(post, result);
@@ -45,7 +64,7 @@ public class PostsController {
 		post.setDate(sqlDate);
 
 		postsService.addPost(post);
-		return "redirect:/user/list";
+		return "redirect:/post/list";
 	}
 
 	@RequestMapping(value = "/post/add")
