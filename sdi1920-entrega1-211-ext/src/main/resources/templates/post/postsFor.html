@@ -18,13 +18,16 @@
 						<th th:text="#{Title.message}"></th>
 						<th th:text="#{Creation.date.message}"></th>
 						<th th:text="#{Text.message}"></th>
+						<th th:text="#{Image.message}"></th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="post : ${postsList}">
 						<td th:text="${post.title}"></td>
 						<td th:text="${post.date}"></td>
-						</td>
+						<td><img id=postImage th:if="${post.photo}"
+							th:src="${'/imagenes/'+post.id}"
+							style="border: 0; height: 100px; width: 100px;"></td>
 
 					</tr>
 				</tbody>

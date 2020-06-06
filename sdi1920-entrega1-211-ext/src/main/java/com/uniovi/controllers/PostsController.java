@@ -1,5 +1,10 @@
 package com.uniovi.controllers;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.sql.Date;
 import java.util.Calendar;
@@ -19,6 +24,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.uniovi.entities.Post;
 import com.uniovi.entities.User;
@@ -40,23 +47,22 @@ public class PostsController {
 	private AddPostFormValidator addPostValidator;
 
 	@RequestMapping("/post/postsOf/{email}")
-	public String getPostsOf(Model model, @PathVariable String email){
+	public String getPostsOf(Model model, @PathVariable String email) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String emailAuth = auth.getName();
-		
+
 		if (friendsService.areFriends(email, emailAuth)) {
-			
+
 			User target = usersService.getUserByEmail(email);
 			List<Post> posts = postsService.getPostsListForUser(target);
 			model.addAttribute("friend", email);
 			model.addAttribute("posts", posts);
-			
+
 		}
-		
+
 		return "post/postsOf";
 	}
-	
-	
+
 	@RequestMapping("/post/list")
 	public String getList(Model model, Pageable pageable, Principal principal) {
 
@@ -72,7 +78,8 @@ public class PostsController {
 	}
 
 	@RequestMapping(value = "/post/add", method = RequestMethod.POST)
-	public String setPost(@Validated Post post, BindingResult result) {
+	public String setPost(@Validated Post post, BindingResult result,
+			@RequestParam(value = "imagen", required = false) MultipartFile imagen) {
 		addPostValidator.validate(post, result);
 
 		if (result.hasErrors()) {
@@ -86,6 +93,17 @@ public class PostsController {
 		Date sqlDate = new Date(Calendar.getInstance().getTime().getTime());
 		post.setDate(sqlDate);
 
+		try {
+			InputStream is = imagen.getInputStream();
+			Files.copy(is, Paths.get("src/main/resources/static/imagenes/" + post.getId()),
+					StandardCopyOption.REPLACE_EXISTING);
+			post.setPhoto(true);
+			postsService.addPost(post);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return "error";
+		}
+		
 		postsService.addPost(post);
 		return "redirect:/post/list";
 	}

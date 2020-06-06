@@ -17,6 +17,7 @@ public class Post {
 	private String title;
 	private String text;
 	private Date date;
+	private boolean photo = false;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -63,6 +64,14 @@ public class Post {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public boolean isPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(boolean photo) {
+		this.photo = photo;
 	}
 
 }
