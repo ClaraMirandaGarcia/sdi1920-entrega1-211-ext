@@ -13,13 +13,13 @@ import com.uniovi.entities.User;
 
 public interface FriendsRepository extends CrudRepository<Friend, IdFriend> {
 
-	@Query("SELECT u FROM User u where u.email IN (select f.id.userEmailFor from Friend f where f.id.userEmailTo=?1)"
-            + " OR  u.email IN (select f.id.userEmailTo from Friend f where f.id.userEmailFor=?1)")
+	@Query("SELECT u FROM User u where u.email IN (select f.id.userEmailFrom from Friend f where f.id.userEmailTo=?1)"
+            + " OR  u.email IN (select f.id.userEmailTo from Friend f where f.id.userEmailFrom=?1)")
     Page<User> getFriendsFor(Pageable pageable, String email);
 	
 	
-	@Query("SELECT u FROM User u where u.email IN (select f.id.userEmailFor from Friend f where f.id.userEmailTo=?1)"
-            + " OR  u.email IN (select f.id.userEmailTo from Friend f where f.id.userEmailFor=?1)")
+	@Query("SELECT u FROM User u where u.email IN (select f.id.userEmailFrom from Friend f where f.id.userEmailTo=?1)"
+            + " OR  u.email IN (select f.id.userEmailTo from Friend f where f.id.userEmailFrom=?1)")
     List<User> getFriendsListFor(String email);
 
 	

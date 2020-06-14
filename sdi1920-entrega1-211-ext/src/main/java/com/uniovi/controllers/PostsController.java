@@ -36,11 +36,12 @@ import com.uniovi.validators.AddPostFormValidator;
 
 @Controller
 public class PostsController {
-
-	@Autowired
-	private PostService postsService;
+	
+	
 	@Autowired
 	private FriendsService friendsService;
+	@Autowired
+	private PostService postsService;
 	@Autowired
 	private UsersService usersService;
 	@Autowired

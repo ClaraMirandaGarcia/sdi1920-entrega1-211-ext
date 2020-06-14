@@ -9,11 +9,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.uniovi.entities.Post;
 import com.uniovi.entities.User;
 import com.uniovi.repositories.PostsRepository;
 
+@Service
 public class PostService {
 
 	@Autowired
@@ -22,6 +24,15 @@ public class PostService {
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+	
+	public void deletePost(Long id) {
+		postsRepository.deleteById(id);
+	}
+
+	public void addPost(Post post) {
+		postsRepository.save(post);
+
+	}
 	public List<Post> getPosts() {
 		List<Post> posts = new ArrayList<Post>();
 		postsRepository.findAll().forEach(posts::add);
@@ -32,19 +43,11 @@ public class PostService {
 		return postsRepository.findById(id).get();
 	}
 
-	public Post getUserByAuthorEmail(String title) {
+	public Post getPostByTitle(String title) {
 		return postsRepository.findByTitle(title);
 	}
 
-	public void deleteUser(Long id) {
-		postsRepository.deleteById(id);
-	}
-
-	public void addPost(Post post) {
-
-		postsRepository.save(post);
-
-	}
+	
 
 	public Page<Post> getPostsForUser(Pageable pageable, User user) {
 		Page<Post> posts = new PageImpl<Post>(new LinkedList<Post>());
