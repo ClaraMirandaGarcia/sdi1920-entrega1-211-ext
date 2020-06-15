@@ -31,8 +31,8 @@ public class FriendsService {
 		return fiRepository.findById(id).get();
 	}
 
-	public void addFriend(Friend invitation) {
-		fiRepository.save(invitation);
+	public void addFriend(Friend friend) {
+		fiRepository.save(friend);
 	}
 
 	public void deleteFriend(IdFriend id) {
@@ -54,6 +54,10 @@ public class FriendsService {
 			}
 		}
 		return false;
+	}
+
+	public void clear() {
+		fiRepository.deleteAll();
 	}
 
 }

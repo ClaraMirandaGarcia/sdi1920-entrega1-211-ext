@@ -65,5 +65,9 @@ public class UsersService {
         users = usersRepository.searchByNameSurnameOrEmailAdmin(pageable, searchText, email);
         return users;
 	}
+
+	public void clear() {
+		usersRepository.deleteAll();
+	}
 	
 }

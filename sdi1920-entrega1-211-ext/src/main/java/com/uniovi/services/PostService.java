@@ -61,4 +61,8 @@ public class PostService {
 		return posts;
 	}
 
+	public void clear() {
+		postsRepository.deleteAll();
+	}
+
 }

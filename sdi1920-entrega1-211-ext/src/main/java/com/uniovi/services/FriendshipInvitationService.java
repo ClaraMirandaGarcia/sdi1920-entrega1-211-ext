@@ -48,4 +48,8 @@ public class FriendshipInvitationService {
 		return users;
 	}
 
+	public void clear() {
+		fiRepository.deleteAll();
+	}
+
 }

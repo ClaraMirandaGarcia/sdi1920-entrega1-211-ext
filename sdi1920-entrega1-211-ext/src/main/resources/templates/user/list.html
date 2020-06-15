@@ -36,7 +36,7 @@
 								th:href="${'/invitation/add/' + user.id}"></a></td>
 							<td sec:authorize="hasRole('ROLE_ADMIN')"><input
 								th:id="'eliminar'+${user.email}" name="userDelete"
-								th:value="${user.email}" type="checkbox" />Eliminar</td>
+								th:value="${user.eamail}" type="checkbox" />Eliminar</td>
 						</tr>
 					</tbody>
 				</table>
