@@ -32,43 +32,39 @@ public class FriendsController {
 	private FriendsService friendsService;
 
 	@Autowired
-	private FriendshipInvitationService friendshipService;
+	private FriendshipInvitationService fiService;
 
-	
 	@RequestMapping("/friend/list")
 	public String getListado(Model model, Pageable pageable) {
+
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
 		Page<User> friends = new PageImpl<User>(new LinkedList<User>());
-
 		friends = friendsService.getFriendsFor(pageable, email);
 
 		model.addAttribute("friendList", friends.getContent());
 		model.addAttribute("page", friends);
 		return "friend/list";
 	}
-	
+
 	@RequestMapping(value = "/friend/add/{email}", method = RequestMethod.GET)
 	public String setFriend(Model model, @PathVariable String email) {
-		Friend friend = new Friend();
-
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
 		String emailFrom = auth.getName();
 		User userTo = usersService.getUserByEmail(email);
 
-		IdFriend idInvitation = new IdFriend(emailFrom, userTo.getEmail());
-		friend.setId(idInvitation);
+		if (fiService.getInvitationEmails(emailFrom, email) == null) {
+			if (!friendsService.areFriends(emailFrom, email)) {
+				Friend friend = new Friend();
+				IdFriend idInvitation = new IdFriend(emailFrom, userTo.getEmail());
+				friend.setId(idInvitation);
+				model.addAttribute("friend", friend);
+				friendsService.addFriend(friend);
+				FriendshipInvitation toDelete = fiService.getInvitationEmails(userTo.getEmail(), emailFrom);
+				fiService.deleteInvitation(toDelete.getId());
+			}
+		}
 
-		model.addAttribute("friend", friend);
-		friendsService.addFriend(friend);
-		
-		//Check if an invitation exists
-		//Check if they are already friends
-
-		//Realmente aquí podría haber más de una invitación? -> CHANGE
-		FriendshipInvitation toDelete = friendshipService.getInvitationEmails(userTo.getEmail(), emailFrom);
-		friendshipService.deleteInvitation(toDelete.getId());
 		return "redirect:/invitation/list";
 	}
 

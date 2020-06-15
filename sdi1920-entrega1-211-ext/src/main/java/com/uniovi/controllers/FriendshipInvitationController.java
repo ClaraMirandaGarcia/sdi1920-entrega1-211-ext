@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.uniovi.entities.FriendshipInvitation;
 import com.uniovi.entities.IdFriendship;
 import com.uniovi.entities.User;
+import com.uniovi.services.FriendsService;
 import com.uniovi.services.FriendshipInvitationService;
 import com.uniovi.services.UsersService;
 
@@ -28,6 +29,8 @@ public class FriendshipInvitationController {
 
 	@Autowired
 	private UsersService usersService;
+	@Autowired
+	private FriendsService fService;
 
 	@RequestMapping("/invitation/list")
 	public String getListado(Model model, Pageable pageable) {
@@ -37,7 +40,6 @@ public class FriendshipInvitationController {
 				new LinkedList<FriendshipInvitation>());
 
 		invitations = invitationsService.getInvitationsByEmailFrom(pageable, emailFrom);
-
 		model.addAttribute("invitationsList", invitations.getContent());
 		model.addAttribute("page", invitations);
 		return "invitation/list";
@@ -45,27 +47,24 @@ public class FriendshipInvitationController {
 
 	@RequestMapping(value = "/invitation/add/{id}", method = RequestMethod.GET)
 	public String setInvitation(Model model, @PathVariable Long id) {
-		FriendshipInvitation invitation = new FriendshipInvitation();
-
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
 		String emailFrom = auth.getName();
 		User userTo = usersService.getUser(id);
 		String emailTo = userTo.getEmail();
 
-		// check if userFrom && userTo -> friends
+		if (!fService.areFriends(emailFrom, emailTo)) {
+			FriendshipInvitation checkExistsInvitation = invitationsService.getInvitationEmails(emailFrom, emailTo);
 
-		// check if the invitation userFrom && userTo or userTo && userFrom exists
-		FriendshipInvitation checkExists = invitationsService.getInvitationEmails(emailFrom, emailTo);
-
-		if (checkExists != null) {
-			IdFriendship idInvitation = new IdFriendship(emailFrom, userTo.getEmail());
-			invitation.setId(idInvitation);
-			model.addAttribute("invitation", invitation);
-			invitationsService.addInvitation(invitation);
+			if (checkExistsInvitation == null) {
+				FriendshipInvitation invitation = new FriendshipInvitation();
+				IdFriendship idInvitation = new IdFriendship(emailFrom, userTo.getEmail());
+				invitation.setId(idInvitation);
+				model.addAttribute("invitation", invitation);
+				invitationsService.addInvitation(invitation);
+			}
 		}
 
-		return "redirect:/home";
+		return "redirect:/invitation/list";
 	}
 
 }

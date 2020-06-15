@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.uniovi.entities.FriendshipInvitation;
 import com.uniovi.entities.IdFriendship;
+import com.uniovi.entities.User;
 import com.uniovi.repositories.FriendshipInvitationsRepository;
 
 @Service
@@ -50,6 +51,14 @@ public class FriendshipInvitationService {
 
 	public void clear() {
 		fiRepository.deleteAll();
+	}
+
+	public List<FriendshipInvitation> getInvitationsListForUser(String email) {
+		return fiRepository.getInvitationsListForUser(email);
+	}
+	
+	public List<User> getInvitationsUsersListForUser(String email) {
+		return fiRepository.getInvitationsUsersListForUser(email);
 	}
 
 }

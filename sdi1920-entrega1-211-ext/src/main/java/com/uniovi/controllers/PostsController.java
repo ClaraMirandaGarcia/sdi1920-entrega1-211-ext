@@ -112,7 +112,6 @@ public class PostsController {
 	@RequestMapping(value = "/post/add")
 	public String getPost(Model model) {
 		model.addAttribute("usersList", usersService.getUsers());
-
 		model.addAttribute("post", new Post());
 		return "post/add";
 	}

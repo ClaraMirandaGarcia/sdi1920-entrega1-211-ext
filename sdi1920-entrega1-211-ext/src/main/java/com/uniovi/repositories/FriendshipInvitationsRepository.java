@@ -1,5 +1,7 @@
 package com.uniovi.repositories;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -7,6 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.uniovi.entities.FriendshipInvitation;
 import com.uniovi.entities.IdFriendship;
+import com.uniovi.entities.User;
 
 public interface FriendshipInvitationsRepository extends CrudRepository<FriendshipInvitation, IdFriendship> {
 
@@ -16,5 +19,11 @@ public interface FriendshipInvitationsRepository extends CrudRepository<Friendsh
 
 	@Query("SELECT i.id.userEmailFrom from FriendshipInvitation i where i.id.userEmailTo=?1")
 	Page<FriendshipInvitation> getInvitationsFor(Pageable pageable, String emailFrom);
+
+	@Query("select f from FriendshipInvitation where f.id.userEmailFrom=?1 OR f.id.userEmailTo=?1")
+	List<FriendshipInvitation> getInvitationsListForUser(String email);
+
+	@Query("SELECT u FROM User u where u.email IN (select f.id.userEmailTo from FriendshipInvitation f where f.id.userEmailFrom=?1 or f.id.userEmailTo=?1)")
+	List<User> getInvitationsUsersListForUser(String email);
 
 }

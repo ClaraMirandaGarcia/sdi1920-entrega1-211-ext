@@ -44,10 +44,16 @@ public class FriendsService {
 		friends = fiRepository.getFriendsFor(pageable, email);
 		return friends;
 	}
+	
+	public List<Friend> getFriendsListForUser(String email) {
+		List<Friend> friends = new ArrayList<Friend>();
+		friends = fiRepository.getFriendsListFor(email);
+		return friends;
+	}
 
 	public boolean areFriends(String email, String emailAuth) {
 
-		List<User> friends = fiRepository.getFriendsListFor(emailAuth);
+		List<User> friends = fiRepository.getFriendsUsersListFor(emailAuth);
 		for (User user : friends) {
 			if (user.getEmail().equals(email)) {
 				return true;
