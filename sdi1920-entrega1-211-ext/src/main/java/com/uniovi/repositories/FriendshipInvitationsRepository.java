@@ -23,7 +23,9 @@ public interface FriendshipInvitationsRepository extends CrudRepository<Friendsh
 	@Query("select f from FriendshipInvitation f where f.id.userEmailFrom=?1 OR f.id.userEmailTo=?1")
 	List<FriendshipInvitation> getInvitationsListForUser(String email);
 
-	@Query("SELECT u FROM User u where u.email IN (select f.id.userEmailTo from FriendshipInvitation f where f.id.userEmailFrom=?1 or f.id.userEmailTo=?1)")
+	@Query("SELECT u FROM User u where u.email IN (select f.id.userEmailFrom from FriendshipInvitation f where f.id.userEmailTo=?1)"
+			+ " OR  u.email IN (select f.id.userEmailTo from FriendshipInvitation f where f.id.userEmailFrom=?1)")
 	List<User> getInvitationsUsersListForUser(String email);
 
+	
 }

@@ -61,10 +61,13 @@ public class FriendshipInvitationController {
 				invitation.setId(idInvitation);
 				model.addAttribute("invitation", invitation);
 				invitationsService.addInvitation(invitation);
+				return "redirect:/"
+						+ "invitation/list";
 			}
+			return "redirect:/user/list";
 		}
 
-		return "redirect:/invitation/list";
+		return "redirect:/friend/list";
 	}
 
 }
