@@ -109,8 +109,6 @@ public class UsersController {
 
 		model.addAttribute("usersList", users.getContent());
 		model.addAttribute("page", users);
-		
-		List<User> aux = fiService.getInvitationsUsersListForUser(email);		
 		model.addAttribute("invitationsList", fiService.getInvitationsUsersListForUser(email));
 
 		// Check if already a friend -> add the list of friends

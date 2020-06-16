@@ -35,7 +35,7 @@
 								th:text="#{Send.message}"
 								th:href="${'/invitation/add/' + user.id}"
 								th:unless="${invitationsList.contains(user) or friendsList.contains(user)}"></a>
-								<strong th:if="${invitationsList.contains(user)}">Invitado</strong></td>
+								<strong th:if="${invitationsList.contains(user)}" th:text="#{Invited.message}">Invitado</strong></td>
 							
 							
 							<td sec:authorize="hasRole('ROLE_ADMIN')"><input
