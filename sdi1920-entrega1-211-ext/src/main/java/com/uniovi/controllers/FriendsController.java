@@ -53,14 +53,16 @@ public class FriendsController {
 		String emailFrom = auth.getName();
 		User userTo = usersService.getUserByEmail(email);
 
-		if (fiService.getInvitationEmails(emailFrom, email) == null) {
+		FriendshipInvitation toDelete = fiService.getInvitationEmails(emailFrom, email);
+
+		if (toDelete != null) {
 			if (!friendsService.areFriends(emailFrom, email)) {
 				Friend friend = new Friend();
 				IdFriend idInvitation = new IdFriend(emailFrom, userTo.getEmail());
 				friend.setId(idInvitation);
 				model.addAttribute("friend", friend);
 				friendsService.addFriend(friend);
-				FriendshipInvitation toDelete = fiService.getInvitationEmails(userTo.getEmail(), emailFrom);
+				
 				fiService.deleteInvitation(toDelete.getId());
 			}
 		}
