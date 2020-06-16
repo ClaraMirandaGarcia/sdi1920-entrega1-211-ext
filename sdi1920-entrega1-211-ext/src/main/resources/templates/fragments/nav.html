@@ -10,6 +10,7 @@
 
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
+
 				<!-- Usuarios -->
 				<li id="menu-users" class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <span
@@ -20,9 +21,10 @@
 					</ul></li>
 
 				<!-- Invitaciones -->
-				<li id="menu-invitations" class="dropdown"><a
-					class="dropdown-toggle" data-toggle="dropdown" href="#"> <span></span>
-						<span class="caret" th:text="#{Manage.invitations.message}"></span>
+				<li sec:authorize="hasRole('ROLE_USER')" id="menu-invitations"
+					class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#"> <span></span> <span
+						class="caret" th:text="#{Manage.invitations.message}"></span>
 				</a>
 					<ul class="dropdown-menu">
 						<li><a href="/invitation/list"> <span
@@ -30,28 +32,31 @@
 					</ul></li>
 
 				<!-- Amigos -->
-				<li id="menu-friends" class="dropdown"><a
-					class="dropdown-toggle" data-toggle="dropdown" href="#"> <span></span>
-						<span class="caret" th:text="#{Manage.friends.message}"></span>
+				<li sec:authorize="hasRole('ROLE_USER')" id="menu-friends"
+					class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#"> <span></span> <span
+						class="caret" th:text="#{Manage.friends.message}"></span>
 				</a>
 					<ul class="dropdown-menu">
 						<li><a href="/friend/list"> <span
 								th:text="#{Friends.message}"></span></a></li>
 					</ul></li>
-					
+
 				<!-- Posts -->
-				<li sec:authorize="isAuthenticated()" id="menu-posts" class="dropdown"><a class="dropdown-toggle"
-					data-toggle="dropdown" href="#"> <span th:text="#{Manage.posts.message}"
-						></span> <span class="caret"></span>
+				<li sec:authorize="isAuthenticated()" id="menu-posts"
+					class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#"> <span
+						th:text="#{Manage.posts.message}"></span> <span
+						class="caret"></span>
 				</a>
-					<ul class="dropdown-menu">
-						<li><a href="/post/add"> <span
+					<ul  class="dropdown-menu">
+						<li sec:authorize="hasRole('ROLE_USER')"><a href="/post/add"> <span
 								th:text="#{Comment.message}"></span></a></li>
-					<li><a href="/post/list"> <span
+						<li><a href="/post/list"> <span
 								th:text="#{Comments.message}"></span></a></li>
-					
+
 					</ul></li>
-				
+
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 
@@ -73,8 +78,8 @@
 								th:text="#{language.es}"></span>
 						</a></li>
 					</ul></li>
-					
-					<!-- Registrarse, Login, Logout -->
+
+				<!-- Registrarse, Login, Logout -->
 				<li sec:authorize="!isAuthenticated()"><a href="/signup"> <span
 						class="glyphicon glyphicon-user"></span> <span
 						th:text="#{Nav.register}"></span>

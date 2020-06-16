@@ -107,7 +107,7 @@ public class InsertSampleData {
 	}
 
 	private void createUser(String name, String surname, String email, String password) {
-		User user = new User(name, surname, email);
+		User user = new User(email, name, surname);
 		user.setRole(rolesService.getRoles()[1]);
 		user.setPassword(password);
 		usersService.addUser(user);

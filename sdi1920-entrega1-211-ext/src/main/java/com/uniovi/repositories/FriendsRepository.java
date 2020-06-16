@@ -21,7 +21,7 @@ public interface FriendsRepository extends CrudRepository<Friend, IdFriend> {
 			+ " OR  u.email IN (select f.id.userEmailTo from Friend f where f.id.userEmailFrom=?1)")
 	List<User> getFriendsUsersListFor(String email);
 
-	@Query("select f from friendship where f.id.userEmailFrom=?1 OR f.id.userEmailTo=?1")
+	@Query("select f from Friend f where f.id.userEmailFrom=?1 OR f.id.userEmailTo=?1")
 	List<Friend> getFriendsListFor(String email);
 
 }

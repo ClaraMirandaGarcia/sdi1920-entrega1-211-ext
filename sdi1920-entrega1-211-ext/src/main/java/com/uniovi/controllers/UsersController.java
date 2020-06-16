@@ -141,7 +141,7 @@ public class UsersController {
 		if (result.hasErrors()) {
 			return "signup";
 		}
-		user.setRole(rolesService.getRoles()[0]);
+		user.setRole(rolesService.getRoles()[1]);
 		usersService.addUser(user);
 		securityService.autoLogin(user.getEmail(), user.getPasswordConfirm());
 		return "redirect:home";
