@@ -7,7 +7,7 @@
 	<nav th:replace="fragments/nav" />
 
 	<div class="container">
-		<h2>Añadir publicación</h2>
+		<h2 th:text="#{Add.post.message}"></h2>
 		<form class="form-horizontal" method="post" action="/post/add"
 			th:object="${post}">
 

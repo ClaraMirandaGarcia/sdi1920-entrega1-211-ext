@@ -46,12 +46,12 @@
 				<li sec:authorize="isAuthenticated()" id="menu-posts"
 					class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#"> <span
-						th:text="#{Manage.posts.message}"></span> <span
-						class="caret"></span>
+						th:text="#{Manage.posts.message}"></span> <span class="caret"></span>
 				</a>
-					<ul  class="dropdown-menu">
-						<li sec:authorize="hasRole('ROLE_USER')"><a href="/post/add"> <span
-								th:text="#{Comment.message}"></span></a></li>
+					<ul class="dropdown-menu">
+						<li sec:authorize="hasRole('ROLE_USER')"><a href="/post/add">
+								<span th:text="#{Comment.message}"></span>
+						</a></li>
 						<li><a href="/post/list"> <span
 								th:text="#{Comments.message}"></span></a></li>
 
