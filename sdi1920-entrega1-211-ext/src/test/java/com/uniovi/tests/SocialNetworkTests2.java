@@ -15,7 +15,7 @@ import com.uniovi.tests.pageobjects.PO_HomeView;
 import com.uniovi.tests.pageobjects.PO_RegisterView;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class SocialNetworkTests {
+public class SocialNetworkTests2 {
 
 	static String PathFirefox65 = "C:\\Program Files\\Mozilla Firefox\\firefox.exe";
 	static String Geckdriver024 = "C:\\Users\\CMG\\Desktop\\Tercero\\2_Cuatrimestre\\SDI\\Laboratorio\\Material\\PL-SDI-Sesión5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
@@ -55,8 +55,8 @@ public class SocialNetworkTests {
 
 	// [Prueba1] Registro de Usuario con datos válidos
 	@Test
-	public void PR01() {
-		//PO_RegisterView.checkUserDoesNotExist(driver, "nonExistantEmail@gmail.com");
+	public void tests() {
+		PO_RegisterView.checkUserDoesNotExist(driver, "nonExistantEmail@gmail.com");
 		// PO_RegisterView.register(driver, "newEmail@whatever.xd", "bestname",
 		// "suchlastname", "100%secure",
 		// "100%secure");
