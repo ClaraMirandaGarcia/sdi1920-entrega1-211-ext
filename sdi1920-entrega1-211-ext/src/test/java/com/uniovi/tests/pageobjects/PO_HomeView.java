@@ -2,6 +2,7 @@ package com.uniovi.tests.pageobjects;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -95,6 +96,17 @@ public class PO_HomeView extends PO_NavView {
 		// Rellenamos el formulario
 		PO_LoginView.fillForm(driver, emailp, passwordp);
 		PO_View.checkElement(driver, "text", emailp);
+	}
+	
+	static public boolean checkLogin(WebDriver driver, String classStr,String buttonName, String loginText, String emailp, String passwordp, String textToCheck) {
+		
+		PO_HomeView.clickOption(driver, loginText, classStr, buttonName);
+		PO_LoginView.fillForm(driver, emailp, passwordp);
+		List<WebElement> list = PO_View.checkElement(driver, "text", textToCheck);		
+		if (list.size() == 0) {
+			return false;
+		}
+		return true;
 	}
 
 }
