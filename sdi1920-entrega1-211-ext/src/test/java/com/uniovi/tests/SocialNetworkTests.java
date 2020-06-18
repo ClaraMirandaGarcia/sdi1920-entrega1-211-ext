@@ -11,6 +11,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -391,46 +392,78 @@ public class SocialNetworkTests {
 //		PO_View.checkElement(driver, "text", "You have been logged out successfully.");
 //	}
 
-	@Test
-	public void PR27() {
-		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example1@gmail.com", "123456");
-		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id, 'menu-friends')]/a", "free",
-				"//a[contains(@href,'friend/list')]");
-		PO_PrivateView.clickOption(driver, "/post/postsOf/example6@gmail.com", "id", "\"emailOf\"");
-		assertEquals(2, PO_PrivateView.countNoPagination(driver, "postForRow"));
-	}
-
+//	@Test
+//	public void PR27() {
+//		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example1@gmail.com", "123456");
+//		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id, 'menu-friends')]/a", "free",
+//				"//a[contains(@href,'friend/list')]");
+//		PO_PrivateView.clickOption(driver, "/post/postsOf/example6@gmail.com", "id", "\"emailOf\"");
+//		assertEquals(2, PO_PrivateView.countNoPagination(driver, "postForRow"));
+//	}
+//
 //	@Test
 //	public void PR28() {
-//		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "fakemail@notAdomain.xd", "123456");
-//		driver.get("http://localhost:8080/post/listfor/fakemail5@notAdomain.xd");
+//		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example1@gmail.com", "123456");
+//		driver.get("http://localhost:8080/post/listfor/example5@gmail.com");
 //		SeleniumUtils.EsperaCargaPagina(driver, "id", "errorId", PO_View.getTimeout());
 //
 //	}
+//
+////	// [Prueba29] Desde el formulario de crear publicaciones, crear una
+////		// publicación con datos válidos y una foto adjunta. 
+////		// Comprobar que en el listado de publicaciones aparece la foto
+////		// adjunta junto al resto de datos de la publicación.
+////		@Test
+////		public void PR29() {
+////			PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example1@gmail.com", "123456");
+////			PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id, 'menu-posts')]/a", "free",
+////					"//a[contains(@href,'/post/add')]");
+////			PO_PrivateView.fillFormAddPostWithPhoto(driver, "TitleOfPostTest29", "TextOfTest29");
+////			PO_View.checkElement(driver, "text", "TitleOfPostTest29");
+////			PO_View.checkElement(driver, "class", "postImage");
+////		}
+//
+//	// [Prueba30] Crear una publicación con datos válidos y sin una foto adjunta.
+//	// Comprobar que la publicación se ha creado con éxito, ya que la foto no es
+//	// obligatoria.
+//	@Test
+//	public void PR30() {
+//		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example1@gmail.com", "123456");
+//		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id, 'menu-posts')]/a", "free",
+//				"//a[contains(@href,'/post/add')]");
+//		PO_PrivateView.fillFormAddPost(driver, "TitleOfPostTest30", "TextOfTest30");
+//		PO_View.checkElement(driver, "text", "TitleOfPostTest30");
+//	}
+//
+//	// [Prueba31] Mostrar el listado de usuarios y comprobar
+//	// que se muestran todos los que existen en el sistema.
+//	@Test
+//	public void PR31() {
+//		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "admin1@gmail.com", "123456");
+//		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id, 'menu-users')]/a", "free",
+//				"//a[contains(@href,'user/list')]");
+//
+//		int numberOfUsers = PO_PrivateView.countInPaginationAux(driver, "userRow");
+//		assertEquals(8, numberOfUsers);
+//	}
 
-//	// [Prueba29] Desde el formulario de crear publicaciones, crear una
-//		// publicación con datos válidos y una foto adjunta. 
-//		// Comprobar que en el listado de publicaciones aparece la foto
-//		// adjunta junto al resto de datos de la publicación.
-//		@Test
-//		public void PR29() {
-//			PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example1@gmail.com", "123456");
-//			PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id, 'menu-posts')]/a", "free",
-//					"//a[contains(@href,'/post/add')]");
-//			PO_PrivateView.fillFormAddPostWithPhoto(driver, "TitleOfPostTest29", "TextOfTest29");
-//			PO_View.checkElement(driver, "text", "TitleOfPostTest29");
-//			PO_View.checkElement(driver, "class", "postImage");
-//		}
-
-	// [Prueba30] Crear una publicación con datos válidos y sin una foto adjunta.
-	// Comprobar que la publicación se ha creado con éxito, ya que la foto no es
-	// obligatoria.
+	// [Prueba32] Ir a la lista de usuarios, borrar el primer usuario de la lista,
+	// comprobar que la lista se actualiza
+	// y dicho usuario desaparece.
 	@Test
-	public void PR30() {
-		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example1@gmail.com", "123456");
-		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id, 'menu-posts')]/a", "free",
-				"//a[contains(@href,'/post/add')]");
-		PO_PrivateView.fillFormAddPost(driver, "TitleOfPostTest30", "TextOfTest30");
-		PO_View.checkElement(driver, "text", "TitleOfPostTest30");
+	public void PR32() {
+		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "admin1@gmail.com", "123456");
+		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id, 'menu-users')]/a", "free",
+				"//a[contains(@href,'user/list')]");
+		List<WebElement> users = SeleniumUtils.EsperaCargaPagina(driver, "class", "emailData", PO_View.getTimeout());
+		String email = users.get(0).getText();
+		
+		List<WebElement> checkBoxes = SeleniumUtils.EsperaCargaPagina(driver, "class", "deleteBox",
+				PO_View.getTimeout());
+		checkBoxes.get(0).click();
+		By boton = By.id("deleteSubmit");
+		driver.findElement(boton).click();
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, email, PO_View.getTimeout());
+		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
 	}
 }
