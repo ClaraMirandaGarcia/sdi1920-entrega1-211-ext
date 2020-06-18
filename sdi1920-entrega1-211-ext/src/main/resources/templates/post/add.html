@@ -9,8 +9,7 @@
 	<div class="container">
 		<h2 th:text="#{Add.post.message}"></h2>
 		<form class="form-horizontal" method="post" action="/post/add"
-			th:object="${post}">
-
+			th:object="${post}" enctype="multipart/form-data">
 
 
 			<div class="form-group">
@@ -33,8 +32,8 @@
 			</div>
 
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="text" th:text="#{Image.message}"></label> <input
-					id=inputImage type="file" name="imagen" />
+				<label class="control-label col-sm-2" for="text" th:text="#{Image.message}"></label> 
+				<input id=inputImage type="file" name="imagen" accept=".png,.jpg,.jpeg,.gif" />
 			</div>
 
 			<div class="form-group">
@@ -44,11 +43,8 @@
 				</div>
 			</div>
 		</form>
-		
-		<!-- ??? -->
-		<form method="POST" action="/post/add" enctype="multipart/form-data">
-		</form>
 	</div>
-
+	
+	<footer th:replace="fragments/footer" />
 </body>
 </html>

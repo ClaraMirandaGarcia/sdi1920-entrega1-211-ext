@@ -8,7 +8,7 @@
 
 	<div class="container">
 		<h2 th:text="#{CommentsOf.message}"></h2>
-		<p id=emailFriend th:text="${friend}"></p>
+		<p id="emailOf" th:text="${friend}"></p>
 		<form class="navbar-form" action="/post/list"></form>
 		<p th:text="#{Comments.current.message}"></p>
 		<div class="table-responsive">
@@ -22,12 +22,14 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="post : ${postsList}">
+					<tr id="postForRow" th:each="post : ${postsList}">
 						<td th:text="${post.title}"></td>
 						<td th:text="${post.date}"></td>
-						<td><img id=postImage th:if="${post.photo}"
-							th:src="${'/imagenes/'+post.id}"
-							style="border: 0; height: 100px; width: 100px;"></td>
+						<td>
+							<img id=postImage th:if="${post.photo}"
+							th:src="${'/images/' + post.id}"
+							style="border: 0; height: 200; width: 200;">
+						</td>
 
 					</tr>
 				</tbody>

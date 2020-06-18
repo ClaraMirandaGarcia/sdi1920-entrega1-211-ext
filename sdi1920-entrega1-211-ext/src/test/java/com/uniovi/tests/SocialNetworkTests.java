@@ -278,34 +278,159 @@ public class SocialNetworkTests {
 ////		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
 ////		PO_View.checkElement(driver, "text", "You have been logged out successfully.");
 //	}
+//
+//	// [Prueba17] Mostrar el listado de invitaciones de amistad recibidas.
+//	// Comprobar con un listado que contenga varias invitaciones recibidas.
+//	@Test
+//	public void PR19() {
+//		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example1@gmail.com", "123456");
+//		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id,'menu-friends')]/a", "free",
+//				"//a[contains(@href, 'friend/list')]");
+//
+//		// Check 4 friendship
+//		assertEquals(4, PO_PrivateView.countInPagination(driver, "friendRow"));
+//	}
+//
+//	// [Prueba20] Visualizar al menos cuatro páginas en Español/Inglés/Español
+//	// (comprobando que algunas de las etiquetas cambian al idioma correspondiente).
+//	// Ejemplo, Página principal/Opciones Principales de Usuario/Listado de Usuarios
+//	@Test
+//	public void PR20() {
+//
+//		PO_HomeView.checkWelcome(driver, PO_Properties.getSPANISH());
+//		PO_HomeView.checkWelcomeChangeIdiom(driver, "btnSpanish", "btnEnglish", PO_Properties.getSPANISH(),
+//				PO_Properties.getENGLISH());
+//		PO_HomeView.checkSignupChangeIdiom(driver, "btnSpanish", "btnEnglish", PO_Properties.getSPANISH(),
+//				PO_Properties.getENGLISH());
+//		PO_HomeView.checkLoginChangeIdiom(driver, "btnSpanish", "btnEnglish", PO_Properties.getSPANISH(),
+//				PO_Properties.getENGLISH());
+//
+//	}
+//
+//	// [Prueba21] Intentar acceder sin estar autenticado a la opción de listado de
+//	// usuarios. Se deberá volver al formulario de login.
+//	@Test
+//	public void PR21() {
+//		driver.navigate().to(URL + "/user/list");
+//		PO_View.checkElement(driver, "id", "loginButton");
+//	}
+//
+//	// [Prueba22] Intentar acceder sin estar autenticado a la opción de listado de
+//	// publicaciones de un usuario
+//	// estándar. Se deberá volver al formulario de login.
+//	@Test
+//	public void PR22() {
+//		driver.navigate().to(URL + "/post/listfor/example2@gmail.com");
+//		PO_View.checkElement(driver, "id", "loginButton");
+//	}
+//
+//	// [Prueba23] Estando autenticado como usuario estándar intentar acceder a una
+//	// opción disponible solo para usuarios administradores
+//	// Se puede añadir una opción cualquiera en el
+//	// menú). Se deberá indicar un mensaje de acción prohibida.
+//	@Test
+//	public void PR23() {
+//		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example3@gmail.com", "123456");
+//		driver.navigate().to(URL + "/user/delete");
+//		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Usuarios", PO_View.getTimeout());
+//	}
+//
+//	// [Prueba24] Ir al formulario crear publicaciones,
+//	// rellenarla con datos válidos y pulsar el botón Submit.
+//	// Comprobar que la publicación sale en el listado de publicaciones de dicho
+//	// usuario.
+//
+//	@Test
+//	public void PR24() {
+//		// Vamos al formulario de logueo.
+//		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example2@gmail.com", "123456");
+//		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id, 'menu-posts')]/a", "free",
+//				"//a[contains(@href,'/post/add')]");
+//		PO_PrivateView.fillFormAddPost(driver, "TitleOfPost24", "TextOfTest24");
+//		PO_View.checkElement(driver, "text", "TitleOfPost24");
+//		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
+//		PO_View.checkElement(driver, "text", "You have been logged out successfully.");
+//	}
+//
+//	// [Prueba25] Ir al formulario de crear publicaciones, rellenarla con datos
+//	// inválidos (campo título vacío) y pulsar el botón Submit. Comprobar que se
+//	// muestra el
+//	// mensaje de campo obligatorio.
+//	@Test
+//	public void PR25() {
+//		// Vamos al formulario de logueo.
+//		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example2@gmail.com", "123456");
+//		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id, 'menu-posts')]/a", "free",
+//				"//a[contains(@href,'/post/add')]");
+//		PO_PrivateView.fillFormAddPost(driver, "", "TextOfText25");
+//		PO_View.checkElement(driver, "text", "El campo título no puede estar vacío");
+//		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
+//		PO_View.checkElement(driver, "text", "You have been logged out successfully.");
+//	}
+//
+//	// [Prueba26] Mostrar el listado de publicaciones de un usuario y comprobar que
+//	// se muestran todas las que existen para dicho usuario.
+//	@Test
+//	public void PR26() {
+//		// Vamos al formulario de logueo.
+//		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example3@gmail.com", "123456");
+//		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id, 'menu-posts')]/a", "free",
+//				"//a[contains(@href,'/post/add')]");
+//		PO_PrivateView.fillFormAddPost(driver, "TitleOfTest26-1", "TextOfTest26-1");
+//		PO_View.checkElement(driver, "text", "TitleOfTest26-1");
+//
+//		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id, 'menu-posts')]/a", "free",
+//				"//a[contains(@href,'/post/add')]");
+//
+//		PO_PrivateView.fillFormAddPost(driver, "TitleOfTest26-2", "TextOfTest26-2");
+//		// count 2
+//		PO_View.checkElement(driver, "text", "TitleOfTest26-1");
+//		PO_View.checkElement(driver, "text", "TitleOfTest26-2");
+//
+//		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
+//		PO_View.checkElement(driver, "text", "You have been logged out successfully.");
+//	}
 
-	// [Prueba17] Mostrar el listado de invitaciones de amistad recibidas.
-	// Comprobar con un listado que contenga varias invitaciones recibidas.
 	@Test
-	public void PR19() {
+	public void PR27() {
 		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example1@gmail.com", "123456");
-		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id,'menu-friends')]/a", "free",
-				"//a[contains(@href, 'friend/list')]");
-
-		// Check 4 friendship
-		assertEquals(4, PO_PrivateView.countInPagination(driver, "friendRow"));
+		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id, 'menu-friends')]/a", "free",
+				"//a[contains(@href,'friend/list')]");
+		PO_PrivateView.clickOption(driver, "/post/postsOf/example6@gmail.com", "id", "\"emailOf\"");
+		assertEquals(2, PO_PrivateView.countNoPagination(driver, "postForRow"));
 	}
-	
 
-	// [Prueba20] Visualizar al menos cuatro páginas en Español/Inglés/Español
-	// (comprobando que algunas de las etiquetas cambian al idioma correspondiente).
-	// Ejemplo, Página principal/Opciones Principales de Usuario/Listado de Usuarios
+//	@Test
+//	public void PR28() {
+//		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "fakemail@notAdomain.xd", "123456");
+//		driver.get("http://localhost:8080/post/listfor/fakemail5@notAdomain.xd");
+//		SeleniumUtils.EsperaCargaPagina(driver, "id", "errorId", PO_View.getTimeout());
+//
+//	}
+
+//	// [Prueba29] Desde el formulario de crear publicaciones, crear una
+//		// publicación con datos válidos y una foto adjunta. 
+//		// Comprobar que en el listado de publicaciones aparece la foto
+//		// adjunta junto al resto de datos de la publicación.
+//		@Test
+//		public void PR29() {
+//			PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example1@gmail.com", "123456");
+//			PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id, 'menu-posts')]/a", "free",
+//					"//a[contains(@href,'/post/add')]");
+//			PO_PrivateView.fillFormAddPostWithPhoto(driver, "TitleOfPostTest29", "TextOfTest29");
+//			PO_View.checkElement(driver, "text", "TitleOfPostTest29");
+//			PO_View.checkElement(driver, "class", "postImage");
+//		}
+
+	// [Prueba30] Crear una publicación con datos válidos y sin una foto adjunta.
+	// Comprobar que la publicación se ha creado con éxito, ya que la foto no es
+	// obligatoria.
 	@Test
-	public void PR20() {
-
-		PO_HomeView.checkWelcome(driver, PO_Properties.getSPANISH());
-		PO_HomeView.checkWelcomeChangeIdiom(driver, "btnSpanish", "btnEnglish", PO_Properties.getSPANISH(),
-				PO_Properties.getENGLISH());
-		PO_HomeView.checkSignupChangeIdiom(driver, "btnSpanish", "btnEnglish", PO_Properties.getSPANISH(),
-				PO_Properties.getENGLISH());
-		PO_HomeView.checkLoginChangeIdiom(driver, "btnSpanish", "btnEnglish", PO_Properties.getSPANISH(),
-				PO_Properties.getENGLISH());
-
+	public void PR30() {
+		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example1@gmail.com", "123456");
+		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id, 'menu-posts')]/a", "free",
+				"//a[contains(@href,'/post/add')]");
+		PO_PrivateView.fillFormAddPost(driver, "TitleOfPostTest30", "TextOfTest30");
+		PO_View.checkElement(driver, "text", "TitleOfPostTest30");
 	}
-
 }

@@ -17,40 +17,18 @@ import org.openqa.selenium.support.ui.Select;
 
 public class PO_PrivateView extends PO_NavView {
 
-	static public void fillFormAddPost(WebDriver driver, String titleToFill, String textToFill) {
-		// Esperamos 5 segundo a que carge el DOM porque en algunos equipos falla
-		SeleniumUtils.esperarSegundos(driver, 5);
-
-		// Rellenemos el campo de descripción
-		WebElement title = driver.findElement(By.name("title"));
-		title.clear();
-		title.sendKeys(titleToFill);
-
-		WebElement text = driver.findElement(By.name("text"));
-		text.click();
-		text.clear();
-		text.sendKeys(textToFill);
-
-		By boton = By.className("btn");
-		driver.findElement(boton).click();
-	}
-
 	public static void fillFormAddPostWithPhoto(WebDriver driver, String titleToFill, String textToFill) {
 		// Esperamos 5 segundo a que carge el DOM porque en algunos equipos falla
 		SeleniumUtils.esperarSegundos(driver, 5);
 
-		// Rellenemos el campo de descripción
 		WebElement title = driver.findElement(By.name("title"));
 		title.clear();
 		title.sendKeys(titleToFill);
-
 		WebElement text = driver.findElement(By.name("text"));
 		text.click();
 		text.clear();
 		text.sendKeys(textToFill);
-
-		URL url = ClassLoader.getSystemResource("static/img/test.jpg");
-
+		URL url = ClassLoader.getSystemResource("static/img/student-48.png");
 		try {
 			File file = new File(url.toURI());
 			WebElement image = driver.findElement(By.id("inputImage"));
@@ -63,13 +41,27 @@ public class PO_PrivateView extends PO_NavView {
 		driver.findElement(boton).click();
 	}
 
-	
+	static public void fillFormAddPost(WebDriver driver, String titleToFill, String textToFill) {
+		// Esperamos 5 segundo a que carge el DOM porque en algunos equipos falla
+		SeleniumUtils.esperarSegundos(driver, 5);
+		WebElement title = driver.findElement(By.name("title"));
+		title.clear();
+		title.sendKeys(titleToFill);
+		WebElement text = driver.findElement(By.name("text"));
+		text.click();
+		text.clear();
+		text.sendKeys(textToFill);
+
+		By boton = By.className("btn");
+		driver.findElement(boton).click();
+	}
+
 	public static void clickMenuOption(final WebDriver driver, final String typeMenu, final String textMenu,
 			final String typeOption, final String textOption) {
 		PO_View.checkElement(driver, typeMenu, textMenu).get(0).click();
 		PO_View.checkElement(driver, typeOption, textOption).get(0).click();
 	}
-	
+
 	public static int countInPaginationAux(WebDriver driver, String rowId) {
 		int total = 0;
 		do {
@@ -85,9 +77,10 @@ public class PO_PrivateView extends PO_NavView {
 				break;
 			}
 		} while (true);
-		
+
 		return total;
 	}
+
 	public static int countInPagination(WebDriver driver, String rowId) {
 		int total = 0;
 		do {

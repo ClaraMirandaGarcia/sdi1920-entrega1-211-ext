@@ -79,10 +79,9 @@ public class PostsController {
 	}
 
 	@RequestMapping(value = "/post/add", method = RequestMethod.POST)
-	public String setPost(@Validated Post post, BindingResult result,
-			@RequestParam(value = "imagen", required = false) MultipartFile imagen) {
+	public String setPost(@Validated Post post, BindingResult result, @RequestParam(value = "imagen", required = false) MultipartFile imagen) {
+		
 		addPostValidator.validate(post, result);
-
 		if (result.hasErrors()) {
 			return "post/add";
 		}
@@ -93,20 +92,25 @@ public class PostsController {
 		post.setUser(userAux);
 		Date sqlDate = new Date(Calendar.getInstance().getTime().getTime());
 		post.setDate(sqlDate);
-
-		try {
-			InputStream is = imagen.getInputStream();
-			Files.copy(is, Paths.get("src/main/resources/static/imagenes/" + post.getId()),
-					StandardCopyOption.REPLACE_EXISTING);
-			post.setPhoto(true);
-			postsService.addPost(post);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return "error";
-		}
 		
 		postsService.addPost(post);
+		if(!imagen.isEmpty()) {
+			verifyPhoto(imagen, post.getId());			
+			post.setPhoto(true);
+			postsService.addPost(post);
+		}
+		
 		return "redirect:/post/list";
+	}
+	
+	private void verifyPhoto(MultipartFile imagen, Long long1) {
+		try {
+			InputStream is = imagen.getInputStream();
+			Files.copy(is, Paths.get("src/main/resources/static/images/" + long1),
+					StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@RequestMapping(value = "/post/add")
