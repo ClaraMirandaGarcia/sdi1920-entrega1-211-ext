@@ -1,6 +1,8 @@
 package com.uniovi.controllers;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,8 +42,22 @@ public class FriendshipInvitationController {
 				new LinkedList<FriendshipInvitation>());
 
 		invitations = invitationsService.getInvitationsByEmailFrom(pageable, emailFrom);
+		
+		List<User> aux = new ArrayList<>();
+		List<FriendshipInvitation> invIt= new ArrayList<>(invitations.getContent());
+		invIt.forEach(
+				invitation -> {
+			String email1 = invitation.getId().getUserEmailFrom();
+			String email2 = invitation.getId().getUserEmailTo();
+
+			if(email1!=emailFrom) {aux.add(usersService.getUserByEmail(email1));}
+			else {aux.add(usersService.getUserByEmail(email2));}
+		});
+		Page<User> invitationsUsers = new PageImpl<User>(aux);
+		model.addAttribute("invitationsUsers", invitationsUsers.getContent());
 		model.addAttribute("invitationsList", invitations.getContent());
 		model.addAttribute("page", invitations);
+		
 		return "invitation/list";
 	}
 

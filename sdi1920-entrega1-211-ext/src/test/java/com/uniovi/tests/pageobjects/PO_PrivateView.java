@@ -63,32 +63,13 @@ public class PO_PrivateView extends PO_NavView {
 		driver.findElement(boton).click();
 	}
 
-	static public void fillFormAddMark(final WebDriver driver, final int userOrder, final String descriptionp,
-			final String scorep) {
-
-		// Esperamos 5 segundo a que carge el DOM porque en algunos equipos falla
-		SeleniumUtils.esperarSegundos(driver, 5);
-
-		// Seleccionamos el alumnos userOrder
-		new Select(driver.findElement(By.id("user"))).selectByIndex(userOrder);
-
-		// Rellenemos el campo de descripción
-		final WebElement description = driver.findElement(By.name("description"));
-		description.clear();
-		description.sendKeys(descriptionp);
-		final WebElement score = driver.findElement(By.name("score"));
-		score.click();
-		score.clear();
-		score.sendKeys(scorep);
-		final By boton = By.className("btn");
-		driver.findElement(boton).click();
-	}
-
+	
 	public static void clickMenuOption(final WebDriver driver, final String typeMenu, final String textMenu,
 			final String typeOption, final String textOption) {
 		PO_View.checkElement(driver, typeMenu, textMenu).get(0).click();
 		PO_View.checkElement(driver, typeOption, textOption).get(0).click();
 	}
+	
 
 	public static int countInPagination(WebDriver driver, String rowId) {
 		int total = 0;
@@ -120,7 +101,7 @@ public class PO_PrivateView extends PO_NavView {
 	}
 
 	public static void sendInvitation(WebDriver driver, String text, String name) {
-		List<WebElement> elementos = PO_View.checkElement(driver, text, "//li[contains(@id,'users-menu')]/a");
+		List<WebElement> elementos = PO_View.checkElement(driver, text, "//li[contains(@id,'menu-users')]/a");
 		elementos.get(0).click();
 		elementos = PO_View.checkElement(driver, text, "//a[contains(@href, 'user/list')]");
 		elementos.get(0).click();

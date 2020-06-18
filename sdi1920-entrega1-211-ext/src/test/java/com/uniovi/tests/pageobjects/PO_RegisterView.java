@@ -51,6 +51,8 @@ public class PO_RegisterView extends PO_NavView {
 
 	public static void checkUserExist(WebDriver driver, String email, String password) {
 		assertTrue(PO_HomeView.checkLogin(driver, "class", "btn btn-primary", "login", email, password, email));
+		// logout
+		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
 	}
 
 	public static void checkUserDoesNotExist(WebDriver driver, String email, String password) {
@@ -59,22 +61,22 @@ public class PO_RegisterView extends PO_NavView {
 	}
 
 	public static void checkInvalidRegister(WebDriver driver, String email, String name, String lastname, String pass,
-			String passconfirm, String textToCheck) {
+			String passconfirm) {
 		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
 		PO_RegisterView.fillForm(driver, email, name, lastname, pass, passconfirm);
 		PO_RegisterView.checkUserDoesNotExist(driver, email, pass);
 	}
 
 	public static int checkSearchForm(WebDriver driver, String text) {
-		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "fakemail2@gmail.com", "123456");
-		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id, 'users-menu')]/a", "free",
+		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example2@gmail.com", "123456");
+		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id, 'menu-users')]/a", "free",
 				"//a[contains(@href,'user/list')]");
-		WebElement searchBox = SeleniumUtils.EsperaCargaPagina(driver, "id", "userListInput", PO_View.getTimeout())
+		WebElement searchBox = SeleniumUtils.EsperaCargaPagina(driver, "id", "searchInput", PO_View.getTimeout())
 				.get(0);
 		searchBox.click();
 		searchBox.clear();
 		searchBox.sendKeys(text);
-		By boton = By.id("submitUserSearch");
+		By boton = By.id("submitSearchButton");
 		driver.findElement(boton).click();
 		return PO_PrivateView.countInPagination(driver, "userRow");
 	}

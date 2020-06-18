@@ -17,7 +17,7 @@ public interface FriendshipInvitationsRepository extends CrudRepository<Friendsh
 			+ " (f.id.userEmailFrom=?1 and f.id.userEmailTo=?1)")
 	FriendshipInvitation getInvitationEmails(String email1, String email2);
 
-	@Query("SELECT i.id.userEmailFrom from FriendshipInvitation i where i.id.userEmailTo=?1")
+	@Query("SELECT i from FriendshipInvitation i where i.id.userEmailTo=?1")
 	Page<FriendshipInvitation> getInvitationsFor(Pageable pageable, String emailFrom);
 
 	@Query("select f from FriendshipInvitation f where f.id.userEmailFrom=?1 OR f.id.userEmailTo=?1")
