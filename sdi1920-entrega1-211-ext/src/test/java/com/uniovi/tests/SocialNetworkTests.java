@@ -67,7 +67,7 @@ public class SocialNetworkTests {
 //		PO_RegisterView.register(driver, "nonExistantEmail@gmail.com", "NameExample", "SurnameExample", "123456",
 //				"123456");
 //		PO_RegisterView.checkUserExist(driver, "nonExistantEmail@gmail.com", "123456");
-//		//DatabaseAux.deleteUser("nonExistantEmail@gmail.com");
+//		// DatabaseAux.deleteUser("nonExistantEmail@gmail.com");
 //	}
 //
 //	// Prueba2] Registro de Usuario con datos inválidos (email vacío, nombre vacío,
@@ -192,91 +192,120 @@ public class SocialNetworkTests {
 //	public void PR14() {
 //		assertEquals(1, PO_RegisterView.checkSearchForm(driver, "Name1"));
 //	}
-
-	@Test
-	public void PR15() {
-		// EXAMPLE1->EXAMPLE4
-		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example1@gmail.com", "123456");
-		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id,'menu-users')]/a", "free",
-				"//a[contains(@href, 'user/list')]");
-		List<WebElement> elementos = PO_HomeView.checkElement(driver, "free",
-				"//td[contains(text(), 'example4@gmail.com')]/following-sibling::*/a[contains(@href, 'invitation/add/')]");
-		elementos.get(0).click();
-		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
-		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example4@gmail.com", "123456");
-		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id,'menu-invitations')]/a", "free",
-				"//a[contains(@href, '/invitation/list')]");
-		PO_View.checkElement(driver, "text", "Name1");
-
-	}
-
-//[Prueba16] Desde el listado de usuarios de la aplicación,
-	// enviar una invitación de amistad a un usuario al que ya le
-	// habíamos enviado la invitación previamente.
-	// No debería dejarnos enviar la invitación,
-	// se podría ocultar el botón de enviar invitación o
-	// notificar que ya había sido enviada previamente.
-
-	@Test
-	public void PR16() {
-		// EXAMPLE1->EXAMPLE4
-		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example1@gmail.com", "123456");
-		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id,'menu-users')]/a", "free",
-				"//a[contains(@href, 'user/list')]");
-
-//		List<WebElement> elementos = PO_View.checkElement(driver, "free",
+//
+//	@Test
+//	public void PR15() {
+//		// EXAMPLE1->EXAMPLE4
+//		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example1@gmail.com", "123456");
+//		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id,'menu-users')]/a", "free",
+//				"//a[contains(@href, 'user/list')]");
+//		List<WebElement> elementos = PO_HomeView.checkElement(driver, "free",
 //				"//td[contains(text(), 'example4@gmail.com')]/following-sibling::*/a[contains(@href, 'invitation/add/')]");
-//		assertTrue(elementos.size()==0);
-		PO_View.checkElement(driver, "text", "Invitado");
-	}
+//		elementos.get(0).click();
+//		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
+//		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example4@gmail.com", "123456");
+//		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id,'menu-invitations')]/a", "free",
+//				"//a[contains(@href, '/invitation/list')]");
+//		PO_View.checkElement(driver, "text", "Name1");
+//
+//	}
+//
+////[Prueba16] Desde el listado de usuarios de la aplicación,
+//	// enviar una invitación de amistad a un usuario al que ya le
+//	// habíamos enviado la invitación previamente.
+//	// No debería dejarnos enviar la invitación,
+//	// se podría ocultar el botón de enviar invitación o
+//	// notificar que ya había sido enviada previamente.
+//
+//	@Test
+//	public void PR16() {
+//		// EXAMPLE1->EXAMPLE4
+//		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example1@gmail.com", "123456");
+//		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id,'menu-users')]/a", "free",
+//				"//a[contains(@href, 'user/list')]");
+//
+////		List<WebElement> elementos = PO_View.checkElement(driver, "free",
+////				"//td[contains(text(), 'example4@gmail.com')]/following-sibling::*/a[contains(@href, 'invitation/add/')]");
+////		assertTrue(elementos.size()==0);
+//		PO_View.checkElement(driver, "text", "Invitado");
+//	}
+//
+//	// [Prueba17] Mostrar el listado de invitaciones de amistad recibidas.
+//	// Comprobar con un listado que contenga varias invitaciones recibidas.
+//	@Test
+//	public void PR17() {
+//		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example4@gmail.com", "123456");
+//		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id,'menu-invitations')]/a", "free",
+//				"//a[contains(@href, 'invitation/list')]");
+//
+//		// Check 3 invitations
+//		PO_View.checkElement(driver, "text", "Name1");
+//		PO_View.checkElement(driver, "text", "Name5");
+//		PO_View.checkElement(driver, "text", "Name6");
+//
+//		assertEquals(3, PO_PrivateView.countInPagination(driver, "invitationRow"));
+////		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
+////		PO_View.checkElement(driver, "text", "You have been logged out successfully.");
+//	}
+//
+//	// [Prueba18] Sobre el listado de invitaciones recibidas. Hacer click en el
+//	// botón/enlace de una de ellas
+//	// y comprobar que dicha solicitud desaparece del listado de invitaciones
+//	@Test
+//	public void PR18() {
+//		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example4@gmail.com", "123456");
+//		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id,'menu-invitations')]/a", "free",
+//				"//a[contains(@href, 'invitation/list')]");
+//
+//		// Check 3 invitations
+//		PO_View.checkElement(driver, "text", "Name1");
+//		PO_View.checkElement(driver, "text", "Name5");
+//		PO_View.checkElement(driver, "text", "Name6");
+//
+//		assertEquals(3, PO_PrivateView.countInPaginationAux(driver, "invitationRow"));
+//
+//		// Accepting 1 -> no me localiza ese elemento :)
+//		List<WebElement> aux2 = PO_View.checkElement(driver, "free",
+//				"//td[contains(text(), 'Name1')]/following-sibling::*/a[contains(@href, 'friend/add/')]");
+//		aux2.get(0).click();
+//
+//		// Check 2 invitations
+//		SeleniumUtils.textoNoPresentePagina(driver, "Name1");
+//		PO_View.checkElement(driver, "text", "Name5");
+//		PO_View.checkElement(driver, "text", "Name6");
+//
+//		assertEquals(2, PO_PrivateView.countInPagination(driver, "invitationRow"));
+////		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
+////		PO_View.checkElement(driver, "text", "You have been logged out successfully.");
+//	}
 
 	// [Prueba17] Mostrar el listado de invitaciones de amistad recibidas.
 	// Comprobar con un listado que contenga varias invitaciones recibidas.
 	@Test
-	public void PR17() {
-		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example4@gmail.com", "123456");
-		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id,'menu-invitations')]/a", "free",
-				"//a[contains(@href, 'invitation/list')]");
+	public void PR19() {
+		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example1@gmail.com", "123456");
+		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id,'menu-friends')]/a", "free",
+				"//a[contains(@href, 'friend/list')]");
 
-		// Check 3 invitations
-		PO_View.checkElement(driver, "text", "Name1");
-		PO_View.checkElement(driver, "text", "Name5");
-		PO_View.checkElement(driver, "text", "Name6");
-
-		assertEquals(3, PO_PrivateView.countInPagination(driver, "invitationRow"));
-//		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
-//		PO_View.checkElement(driver, "text", "You have been logged out successfully.");
+		// Check 4 friendship
+		assertEquals(4, PO_PrivateView.countInPagination(driver, "friendRow"));
 	}
+	
 
-	// [Prueba18] Sobre el listado de invitaciones recibidas. Hacer click en el
-	// botón/enlace de una de ellas
-	// y comprobar que dicha solicitud desaparece del listado de invitaciones
+	// [Prueba20] Visualizar al menos cuatro páginas en Español/Inglés/Español
+	// (comprobando que algunas de las etiquetas cambian al idioma correspondiente).
+	// Ejemplo, Página principal/Opciones Principales de Usuario/Listado de Usuarios
 	@Test
-	public void PR18() {
-		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example4@gmail.com", "123456");
-		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id,'menu-invitations')]/a", "free",
-				"//a[contains(@href, 'invitation/list')]");
+	public void PR20() {
 
-		// Check 3 invitations
-		PO_View.checkElement(driver, "text", "Name1");
-		PO_View.checkElement(driver, "text", "Name5");
-		PO_View.checkElement(driver, "text", "Name6");
+		PO_HomeView.checkWelcome(driver, PO_Properties.getSPANISH());
+		PO_HomeView.checkWelcomeChangeIdiom(driver, "btnSpanish", "btnEnglish", PO_Properties.getSPANISH(),
+				PO_Properties.getENGLISH());
+		PO_HomeView.checkSignupChangeIdiom(driver, "btnSpanish", "btnEnglish", PO_Properties.getSPANISH(),
+				PO_Properties.getENGLISH());
+		PO_HomeView.checkLoginChangeIdiom(driver, "btnSpanish", "btnEnglish", PO_Properties.getSPANISH(),
+				PO_Properties.getENGLISH());
 
-		assertEquals(3, PO_PrivateView.countInPagination(driver, "invitationRow"));
-
-		// Accepting 1 -> no me localiza ese elemento :)
-		List<WebElement> elementos = PO_View.checkElement(driver, "free",
-				"//td[contains(text(), 'Name1')]/following-sibling::*/a[contains(@href, 'friend/add/')]");
-		elementos.get(0).click();
-
-		// Check 2 invitations
-		SeleniumUtils.textoNoPresentePagina(driver, "Name1");
-		PO_View.checkElement(driver, "text", "Name5");
-		PO_View.checkElement(driver, "text", "Name6");
-
-		assertEquals(3, PO_PrivateView.countInPagination(driver, "invitationRow"));
-//		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
-//		PO_View.checkElement(driver, "text", "You have been logged out successfully.");
 	}
 
 }

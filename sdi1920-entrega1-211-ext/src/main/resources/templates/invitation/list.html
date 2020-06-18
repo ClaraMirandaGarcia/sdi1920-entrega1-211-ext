@@ -21,7 +21,7 @@
 				<tbody>
 					<tr id="invitationRow" th:each="userInvited : ${invitationsUsers}">
 						<td th:text="${userInvited.name}"></td>
-						</td>
+
 						<td><a th:text="#{Accept.message}"
 							th:href="${'/friend/add/' + userInvited.email}"></a></td>
 					</tr>

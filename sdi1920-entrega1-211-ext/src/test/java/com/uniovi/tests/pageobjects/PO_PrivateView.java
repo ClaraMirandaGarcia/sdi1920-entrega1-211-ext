@@ -70,7 +70,24 @@ public class PO_PrivateView extends PO_NavView {
 		PO_View.checkElement(driver, typeOption, textOption).get(0).click();
 	}
 	
-
+	public static int countInPaginationAux(WebDriver driver, String rowId) {
+		int total = 0;
+		do {
+			try {
+				total += SeleniumUtils.EsperaCargaPagina(driver, "id", rowId, PO_View.getTimeout()).size();
+			} catch (final TimeoutException e) {
+			}
+			try {
+				final List<WebElement> elementos = PO_View.checkElement(driver, "id", "page-item-next");
+				assertTrue(elementos.size() == 1);
+				elementos.get(0).click();
+			} catch (final TimeoutException e) {
+				break;
+			}
+		} while (true);
+		
+		return total;
+	}
 	public static int countInPagination(WebDriver driver, String rowId) {
 		int total = 0;
 		do {
