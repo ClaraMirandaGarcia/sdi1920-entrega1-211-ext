@@ -19,7 +19,7 @@ public class PO_RegisterView extends PO_NavView {
 		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
 		PO_RegisterView.fillForm(driver, emailp, namep, lastnamep, passwordp, passwordconfp);
 		PO_View.checkElement(driver, "text", emailp);
-		PO_PrivateView.clickOption(driver, "logout", "id", "loginButton");
+		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
 	}
 
 	static public void fillForm(WebDriver driver, String emailp, String namep, String lastnamep, String passwordp,
@@ -51,8 +51,8 @@ public class PO_RegisterView extends PO_NavView {
 
 	public static void checkUserExist(WebDriver driver, String email, String password) {
 		assertTrue(PO_HomeView.checkLogin(driver, "class", "btn btn-primary", "login", email, password, email));
-		// logout
-		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
+		PO_PrivateView.clickOption(driver, "logout", "text", "You have been logged out successfully.");
+		
 	}
 
 	public static void checkUserDoesNotExist(WebDriver driver, String email, String password) {

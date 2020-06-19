@@ -19,8 +19,8 @@
 				</thead>
 				<tbody>
 					<tr id="friendRow" th:each="friend : ${friendList}">
-						<td th:text="${friend.name}"
-							th:href="${'/post/postsOf/' + friend.email"></td>
+						<td><a th:text="${friend.name}"
+							th:href="${'/post/postsOf/' + friend.email}"></a></td>
 						<td th:text="${friend.lastName}"></td>
 						<td th:text="${friend.email}"></td>
 					</tr>

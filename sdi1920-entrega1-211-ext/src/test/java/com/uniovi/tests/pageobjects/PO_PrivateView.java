@@ -96,7 +96,8 @@ public class PO_PrivateView extends PO_NavView {
 				break;
 			}
 		} while (true);
-		PO_PrivateView.clickOption(driver, "logout", "id", "loginButton");
+		PO_PrivateView.clickOption(driver, "logout", "text", "You have been logged out successfully.");
+
 		return total;
 	}
 
@@ -106,7 +107,7 @@ public class PO_PrivateView extends PO_NavView {
 			total += SeleniumUtils.EsperaCargaPagina(driver, "id", rowId, PO_View.getTimeout()).size();
 		} catch (final TimeoutException e) {
 		}
-		PO_PrivateView.clickOption(driver, "logout", "id", "loginButton");
+		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
 		return total;
 	}
 

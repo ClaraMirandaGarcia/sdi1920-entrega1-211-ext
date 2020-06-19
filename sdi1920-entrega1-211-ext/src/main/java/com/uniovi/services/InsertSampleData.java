@@ -63,8 +63,8 @@ public class InsertSampleData {
 		createFriends("example1@gmail.com", "example6@gmail.com");
 
 		// Creating new posts
-		createPost("TextPost1", "TitlePost1", "examle6@gmail.com");
-		createPost("TextPost2", "TitlePost2", "examle6@gmail.com");
+		createPost("TextPost1", "TitlePost1", "example6@gmail.com");
+		createPost("TextPost2", "TitlePost2", "example6@gmail.com");
 
 	}
 

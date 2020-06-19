@@ -57,8 +57,10 @@ public class PostsController {
 			User target = usersService.getUserByEmail(email);
 			List<Post> posts = postsService.getPostsListForUser(target);
 			model.addAttribute("friend", email);
-			model.addAttribute("posts", posts);
+			model.addAttribute("postsList", posts);
 
+		} else {
+			return "error";
 		}
 
 		return "post/postsOf";
