@@ -57,6 +57,17 @@
 
 					</ul></li>
 
+				<!-- Database management -->
+				<li sec:authorize="hasRole('ROLE_ADMIN')" id="menu-database"
+					class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#"> <span>Database</span> <span
+						class="caret"></span>
+				</a>
+					<ul class="dropdown-menu">
+
+						<li><a href="/database/clear"> <span>Reset</span></a></li>
+
+					</ul></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 

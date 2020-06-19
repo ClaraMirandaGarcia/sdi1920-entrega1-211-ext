@@ -2,7 +2,6 @@
 package com.uniovi.tests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -16,6 +15,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import com.uniovi.services.InsertSampleData;
 import com.uniovi.tests.pageobjects.PO_HomeView;
 import com.uniovi.tests.pageobjects.PO_LoginView;
 import com.uniovi.tests.pageobjects.PO_PrivateView;
@@ -30,6 +30,7 @@ public class SocialNetworkTests {
 	static String Geckdriver024 = "C:\\Users\\CMG\\Desktop\\Tercero\\2_Cuatrimestre\\SDI\\Laboratorio\\Material\\PL-SDI-Sesión5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
 	static WebDriver driver = getDriver(PathFirefox65, Geckdriver024);
 	static String URL = "http://localhost:8080";
+	
 
 	public static WebDriver getDriver(String PathFirefox, String Geckdriver) {
 		System.setProperty("webdriver.firefox.bin", PathFirefox);
@@ -50,15 +51,16 @@ public class SocialNetworkTests {
 
 	@BeforeClass
 	static public void begin() {
-
+		
 	}
 
 	@AfterClass
 	static public void end() {
-//		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "admin1@gmail.com", "123456");
-//		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id, 'db-menu')]/a", "free",
-//				"//a[contains(@href,'database/reset')]");
-//		driver.quit();
+		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "admin1@gmail.com", "123456");
+		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id, 'menu-database')]/a", "free",
+				"//a[contains(@href,'database/clear')]");
+		driver.quit();
+		
 	}
 
 	// [Prueba1] Registro de Usuario con datos válidos
@@ -68,7 +70,6 @@ public class SocialNetworkTests {
 		PO_RegisterView.register(driver, "nonExistantEmail@gmail.com", "NameExample", "SurnameExample", "123456",
 				"123456");
 		PO_RegisterView.checkUserExist(driver, "nonExistantEmail@gmail.com", "123456");
-		// DatabaseAux.deleteUser("nonExistantEmail@gmail.com");
 	}
 
 	// Prueba2] Registro de Usuario con datos inválidos (email vacío, nombre vacío,
@@ -76,8 +77,8 @@ public class SocialNetworkTests {
 	@Test
 	public void PR02() {
 		// email vacio
-		// PO_RegisterView.checkInvalidRegister(driver, "", "nameEx", "lastNameEx",
-		// "123456", "123456");
+		 PO_RegisterView.checkInvalidRegisterSimple(driver, "", "nameEx", "lastNameEx",
+		 "123456", "123456");
 		// nombre vacio
 		PO_RegisterView.checkInvalidRegister(driver, "invalidEmail@gmail.com", "", "suchlastname", "100%secure",
 				"100%secure");
@@ -405,7 +406,6 @@ public class SocialNetworkTests {
 	public void PR28() {
 		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example1@gmail.com", "123456");
 		driver.get("http://localhost:8080/post/postsOf/example5@gmail.com");
-//		SeleniumUtils.EsperaCargaPagina(driver, "id", "errorId", PO_View.getTimeout()); // Idk what is that errorId
 		PO_View.checkElement(driver, "text", "Error Page");
 	}
 
@@ -457,7 +457,6 @@ public class SocialNetworkTests {
 				"//a[contains(@href,'user/list')]");
 		List<WebElement> users = SeleniumUtils.EsperaCargaPagina(driver, "class", "emailData", PO_View.getTimeout());
 		String email = users.get(0).getText();
-
 		List<WebElement> checkBoxes = SeleniumUtils.EsperaCargaPagina(driver, "class", "deleteBox",
 				PO_View.getTimeout());
 		checkBoxes.get(0).click();
@@ -465,5 +464,46 @@ public class SocialNetworkTests {
 		driver.findElement(boton).click();
 		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, email, PO_View.getTimeout());
 		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
+	}
+
+	// Ir a la lista de usuarios, borrar el último usuario de la lista, comprobar
+	// que la lista se actualiza
+	// y dicho usuario desaparece.
+	@Test
+	public void PR33() {
+		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "admin1@gmail.com", "123456");
+		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id, 'menu-users')]/a", "free",
+				"//a[contains(@href,'user/list')]");
+		List<WebElement> users = SeleniumUtils.EsperaCargaPagina(driver, "class", "emailData", PO_View.getTimeout());
+		String email = users.get(users.size() - 1).getText();
+		List<WebElement> checkBoxes = SeleniumUtils.EsperaCargaPagina(driver, "class", "deleteBox",
+				PO_View.getTimeout());
+		checkBoxes.get(checkBoxes.size() - 1).click();
+		By boton = By.id("deleteSubmit");
+		driver.findElement(boton).click();
+		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, email, PO_View.getTimeout());
+		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
+	}
+
+	// Ir a la lista de usuarios, borrar 3 usuarios, comprobar que la lista se
+	// actualiza y dichos
+	// usuarios desaparecen.
+	@Test
+	public void PR34() {
+		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "admin1@gmail.com", "123456");
+		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id, 'menu-users')]/a", "free",
+				"//a[contains(@href,'user/list')]");
+		List<WebElement> users = SeleniumUtils.EsperaCargaPagina(driver, "class", "emailData", PO_View.getTimeout());
+		int count = users.size();
+		users = users.subList(0, 3);
+		List<WebElement> checkBoxes = SeleniumUtils.EsperaCargaPagina(driver, "class", "deleteBox",
+				PO_View.getTimeout());
+		checkBoxes = checkBoxes.subList(0, 3);
+		checkBoxes.get(checkBoxes.size() - 1).click();
+		checkBoxes.get(checkBoxes.size() - 2).click();
+		checkBoxes.get(checkBoxes.size() - 3).click();
+		By boton = By.id("deleteSubmit");
+		driver.findElement(boton).click();
+		assertEquals(count - 3, PO_PrivateView.countNoPagination(driver, "userRow"));
 	}
 }

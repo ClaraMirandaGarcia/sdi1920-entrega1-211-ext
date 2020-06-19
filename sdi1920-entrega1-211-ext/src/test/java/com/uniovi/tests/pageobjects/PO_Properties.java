@@ -19,6 +19,7 @@ public class PO_Properties {
 	static Locale[] idioms = new Locale[] { new Locale("ES"), new Locale("EN") };
 
 	// static Properties p = new Properties();
+	@SuppressWarnings("static-access")
 	public PO_Properties(String Path) // throws FileNotFoundException, IOException
 	{
 		this.Path = Path;

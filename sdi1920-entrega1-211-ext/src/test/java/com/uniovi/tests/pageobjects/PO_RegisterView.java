@@ -1,16 +1,12 @@
 package com.uniovi.tests.pageobjects;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-
-import java.util.List;
-
-import com.uniovi.utils.SeleniumUtils;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import com.uniovi.utils.SeleniumUtils;
 
 public class PO_RegisterView extends PO_NavView {
 
@@ -52,7 +48,7 @@ public class PO_RegisterView extends PO_NavView {
 	public static void checkUserExist(WebDriver driver, String email, String password) {
 		assertTrue(PO_HomeView.checkLogin(driver, "class", "btn btn-primary", "login", email, password, email));
 		PO_PrivateView.clickOption(driver, "logout", "text", "You have been logged out successfully.");
-		
+
 	}
 
 	public static void checkUserDoesNotExist(WebDriver driver, String email, String password) {
@@ -65,6 +61,14 @@ public class PO_RegisterView extends PO_NavView {
 		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
 		PO_RegisterView.fillForm(driver, email, name, lastname, pass, passconfirm);
 		PO_RegisterView.checkUserDoesNotExist(driver, email, pass);
+	}
+
+	public static void checkInvalidRegisterSimple(WebDriver driver, String email, String name, String lastname,
+			String pass, String passconfirm) {
+		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
+		PO_RegisterView.fillForm(driver, email, name, lastname, pass, passconfirm);
+		// check in the same page
+		PO_View.checkElement(driver, "id", "signupLabel");
 	}
 
 	public static int checkSearchForm(WebDriver driver, String text) {

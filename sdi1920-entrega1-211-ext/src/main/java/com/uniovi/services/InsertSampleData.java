@@ -18,7 +18,7 @@ import com.uniovi.entities.User;
 public class InsertSampleData {
 
 	@Autowired
-	private UsersService usersService;
+	private UsersService usersService ;
 	@Autowired
 	private FriendsService frService;
 	@Autowired

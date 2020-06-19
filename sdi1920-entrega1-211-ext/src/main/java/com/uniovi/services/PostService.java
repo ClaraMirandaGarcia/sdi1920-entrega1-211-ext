@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.uniovi.entities.Post;
@@ -21,10 +20,6 @@ public class PostService {
 	@Autowired
 	private PostsRepository postsRepository;
 
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-	
 	public void deletePost(Long id) {
 		postsRepository.deleteById(id);
 	}
@@ -33,6 +28,7 @@ public class PostService {
 		postsRepository.save(post);
 
 	}
+
 	public List<Post> getPosts() {
 		List<Post> posts = new ArrayList<Post>();
 		postsRepository.findAll().forEach(posts::add);
@@ -46,8 +42,6 @@ public class PostService {
 	public Post getPostByTitle(String title) {
 		return postsRepository.findByTitle(title);
 	}
-
-	
 
 	public Page<Post> getPostsForUser(Pageable pageable, User user) {
 		Page<Post> posts = new PageImpl<Post>(new LinkedList<Post>());
