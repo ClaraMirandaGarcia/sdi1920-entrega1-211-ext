@@ -34,6 +34,13 @@ public class FriendshipInvitationController {
 	@Autowired
 	private FriendsService fService;
 
+	/**
+	 * Método que dirige a la vista paginada de las invitaciones
+	 * que ha recibido el usuario autenticado.
+	 * @param model
+	 * @param pageable
+	 * @return
+	 */
 	@RequestMapping("/invitation/list")
 	public String getListado(Model model, Pageable pageable) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -61,6 +68,13 @@ public class FriendshipInvitationController {
 		return "invitation/list";
 	}
 
+	/**
+	 * Método que permite enviar una petición de amistad a cierto usuario
+	 * no siendo este su amigo ni existiendo una invitación previa.
+	 * @param model
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/invitation/add/{id}", method = RequestMethod.GET)
 	public String setInvitation(Model model, @PathVariable Long id) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();

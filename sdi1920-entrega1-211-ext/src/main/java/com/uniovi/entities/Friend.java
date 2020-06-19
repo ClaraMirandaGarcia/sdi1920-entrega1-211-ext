@@ -3,6 +3,11 @@ package com.uniovi.entities;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+/**
+ * Entidad que representa una amistad
+ * @author CMG
+ *
+ */
 @Entity
 public class Friend {
 	

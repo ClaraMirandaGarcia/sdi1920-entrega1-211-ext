@@ -8,6 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+/**
+ * Entidad que representa una publicación
+ * @author CMG
+ *
+ */
 @Entity
 public class Post {
 	@Id

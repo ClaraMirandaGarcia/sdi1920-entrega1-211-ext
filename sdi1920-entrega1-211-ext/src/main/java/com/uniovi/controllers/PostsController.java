@@ -47,6 +47,13 @@ public class PostsController {
 	@Autowired
 	private AddPostFormValidator addPostValidator;
 
+	/**
+	 * Método que devuelve el listado de publicaciones
+	 * de cierto usuario
+	 * @param model
+	 * @param email
+	 * @return
+	 */
 	@RequestMapping("/post/postsOf/{email}")
 	public String getPostsOf(Model model, @PathVariable String email) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -66,6 +73,13 @@ public class PostsController {
 		return "post/postsOf";
 	}
 
+	/**
+	 * Método que devuelve el listado de publicaciones
+	 * @param model
+	 * @param pageable
+	 * @param principal
+	 * @return
+	 */
 	@RequestMapping("/post/list")
 	public String getList(Model model, Pageable pageable, Principal principal) {
 
@@ -80,6 +94,13 @@ public class PostsController {
 		return "post/list";
 	}
 
+	/**
+	 * Método que permite publicar un post, validándolo previamente
+	 * @param post
+	 * @param result
+	 * @param imagen
+	 * @return
+	 */
 	@RequestMapping(value = "/post/add", method = RequestMethod.POST)
 	public String setPost(@Validated Post post, BindingResult result, @RequestParam(value = "imagen", required = false) MultipartFile imagen) {
 		
@@ -105,6 +126,12 @@ public class PostsController {
 		return "redirect:/post/list";
 	}
 	
+	/**
+	 * Método auxiliar centrado en copiar la imagen a
+	 * la carpeta /static/images
+	 * @param imagen
+	 * @param long1
+	 */
 	private void verifyPhoto(MultipartFile imagen, Long long1) {
 		try {
 			InputStream is = imagen.getInputStream();

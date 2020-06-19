@@ -10,6 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
+/**
+ * Entidad que representa un usuario
+ * @author CMG
+ *
+ */
 @Entity
 public class User {
 

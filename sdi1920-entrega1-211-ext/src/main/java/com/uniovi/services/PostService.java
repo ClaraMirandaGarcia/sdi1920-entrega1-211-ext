@@ -29,19 +29,8 @@ public class PostService {
 
 	}
 
-	public List<Post> getPosts() {
-		List<Post> posts = new ArrayList<Post>();
-		postsRepository.findAll().forEach(posts::add);
-		return posts;
-	}
+	
 
-	public Post getPost(Long id) {
-		return postsRepository.findById(id).get();
-	}
-
-	public Post getPostByTitle(String title) {
-		return postsRepository.findByTitle(title);
-	}
 
 	public Page<Post> getPostsForUser(Pageable pageable, User user) {
 		Page<Post> posts = new PageImpl<Post>(new LinkedList<Post>());

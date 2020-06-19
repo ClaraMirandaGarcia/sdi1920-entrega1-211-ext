@@ -13,6 +13,10 @@ public class DataController {
     @Autowired
     private InsertSampleData dataService;
 
+    /**
+     * Method to reset the database.
+     * @return
+     */
     @RequestMapping(value = "/database/clear", method = RequestMethod.GET)
     public String setDB() {
         dataService.clearData();

@@ -385,10 +385,8 @@ public class SocialNetworkTests {
 				"//a[contains(@href,'/post/add')]");
 
 		PO_PrivateView.fillFormAddPost(driver, "TitleOfTest26-2", "TextOfTest26-2");
-		// count 2
 		PO_View.checkElement(driver, "text", "TitleOfTest26-1");
 		PO_View.checkElement(driver, "text", "TitleOfTest26-2");
-
 		PO_HomeView.clickOption(driver, "logout", "class", "btn btn-primary");
 		PO_View.checkElement(driver, "text", "You have been logged out successfully.");
 	}
@@ -405,8 +403,8 @@ public class SocialNetworkTests {
 	@Test
 	public void PR28() {
 		PO_HomeView.loginForm(driver, "class", "btn btn-primary", "login", "example1@gmail.com", "123456");
-		driver.get("http://localhost:8080/post/postsOf/example5@gmail.com");
-		PO_View.checkElement(driver, "text", "Error Page");
+		driver.navigate().to(URL + "/post/postsOf/example5@gmail.com");
+		SeleniumUtils.EsperaCargaPagina(driver, "id", "errorId", PO_View.getTimeout());
 	}
 
 	// [Prueba29] Desde el formulario de crear publicaciones, crear una

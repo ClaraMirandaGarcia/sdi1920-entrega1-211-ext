@@ -4,6 +4,11 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+/**
+ * Entidad que representa una petición de amistad
+ * @author CMG
+ *
+ */
 @Entity
 public class FriendshipInvitation {
 

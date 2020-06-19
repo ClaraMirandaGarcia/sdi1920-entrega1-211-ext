@@ -34,6 +34,13 @@ public class FriendsController {
 	@Autowired
 	private FriendshipInvitationService fiService;
 
+	/**
+	 * Metodo que devuelve el listado de amigos que tiene
+	 * el usuario autenticado
+	 * @param model
+	 * @param pageable
+	 * @return
+	 */
 	@RequestMapping("/friend/list")
 	public String getListado(Model model, Pageable pageable) {
 
@@ -47,6 +54,12 @@ public class FriendsController {
 		return "friend/list";
 	}
 
+	/**
+	 * Método que permite añadir a cierto usuario como amigo
+	 * @param model
+	 * @param email
+	 * @return
+	 */
 	@RequestMapping(value = "/friend/add/{email}", method = RequestMethod.GET)
 	public String setFriend(Model model, @PathVariable String email) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();

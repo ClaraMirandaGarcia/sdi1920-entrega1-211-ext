@@ -47,6 +47,13 @@ public class UsersController {
 	@Autowired
 	private SignUpFormValidator signUpFormValidator;
 
+	/**
+	 * Método que borra de la base de datos a determinados
+	 * usuarios con sus datos específicos
+	 * @param rattrs
+	 * @param emails
+	 * @return
+	 */
 	@RequestMapping(value = "/user/delete", method = RequestMethod.POST)
 	public String delete(RedirectAttributes rattrs,
 			@RequestParam(value = "userDelete", required = false) List<String> emails) {
@@ -81,6 +88,16 @@ public class UsersController {
 		return "redirect:list";
 	}
 
+	/**
+	 * Método que devuelve la vista paginada 
+	 * del listado de usuarios. Depende de si 
+	 * el usuario es administrador o no
+	 * @param model
+	 * @param pageable
+	 * @param searchText
+	 * @param error
+	 * @return
+	 */
 	@RequestMapping("/user/list")
 	public String getListado(Model model, Pageable pageable,
 			@RequestParam(value = "", required = false) String searchText, @ModelAttribute("error") String error) {
@@ -124,6 +141,7 @@ public class UsersController {
 	}
 
 	// Basic methods of the application
+	
 	@RequestMapping(value = { "/home" }, method = RequestMethod.GET)
 	public String home() {
 		return "home";
