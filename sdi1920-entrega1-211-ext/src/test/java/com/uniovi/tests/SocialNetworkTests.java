@@ -30,7 +30,6 @@ public class SocialNetworkTests {
 	static String Geckdriver024 = "C:\\Users\\CMG\\Desktop\\Tercero\\2_Cuatrimestre\\SDI\\Laboratorio\\Material\\PL-SDI-Sesión5-material\\PL-SDI-Sesión5-material\\geckodriver024win64.exe";
 	static WebDriver driver = getDriver(PathFirefox65, Geckdriver024);
 	static String URL = "http://localhost:8080";
-	
 
 	public static WebDriver getDriver(String PathFirefox, String Geckdriver) {
 		System.setProperty("webdriver.firefox.bin", PathFirefox);
@@ -51,7 +50,7 @@ public class SocialNetworkTests {
 
 	@BeforeClass
 	static public void begin() {
-		
+
 	}
 
 	@AfterClass
@@ -60,7 +59,7 @@ public class SocialNetworkTests {
 		PO_PrivateView.clickMenuOption(driver, "free", "//li[contains(@id, 'menu-database')]/a", "free",
 				"//a[contains(@href,'database/clear')]");
 		driver.quit();
-		
+
 	}
 
 	// [Prueba1] Registro de Usuario con datos válidos
@@ -77,14 +76,11 @@ public class SocialNetworkTests {
 	@Test
 	public void PR02() {
 		// email vacio
-		 PO_RegisterView.checkInvalidRegisterSimple(driver, "", "nameEx", "lastNameEx",
-		 "123456", "123456");
+		PO_RegisterView.checkInvalidRegisterSimple(driver, "", "nameEx", "lastNameEx", "123456", "123456");
 		// nombre vacio
-		PO_RegisterView.checkInvalidRegister(driver, "invalidEmail@gmail.com", "", "suchlastname", "100%secure",
-				"100%secure");
+		PO_RegisterView.checkInvalidRegister(driver, "invalidEmail@gmail.com", "", "suchlastname", "123456", "123456");
 		// apellidos vacios
-		PO_RegisterView.checkInvalidRegister(driver, "invalidEmail@gmail.com", "bestname3", "", "100%secure",
-				"100%secure");
+		PO_RegisterView.checkInvalidRegister(driver, "invalidEmail@gmail.com", "nameEx", "", "123456", "123456");
 	}
 
 	// [Prueba3] Registro de Usuario con datos inválidos (repetición de contraseña
@@ -92,9 +88,9 @@ public class SocialNetworkTests {
 	@Test
 	public void PR03() {
 		PO_HomeView.clickOption(driver, "signup", "class", "btn btn-primary");
-		PO_RegisterView.fillForm(driver, "newEmail03@whatever.xd", "bestname03", "suchlastname03", "0", "0");
+		PO_RegisterView.fillForm(driver, "emailEx3@gmail.com", "nameEx", "lastNameEx", "0", "0");
 		PO_RegisterView.checkKey(driver, "Error.signup.password.length", PO_Properties.getSPANISH());
-		PO_RegisterView.checkUserDoesNotExist(driver, "newEmail03@whatever.xd", "0");
+		PO_RegisterView.checkUserDoesNotExist(driver, "emailEx3@gmail.com", "0");
 	}
 
 	// [Prueba4] Registro de Usuario con datos inválidos (email existente).
