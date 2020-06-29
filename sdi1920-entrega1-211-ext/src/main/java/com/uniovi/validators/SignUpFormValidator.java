@@ -38,6 +38,10 @@ public class SignUpFormValidator implements Validator {
         if (usersService.getUserByEmail(user.getEmail()) != null) {
             errors.rejectValue("email", "Error.signup.email.duplicate");
         }
+        
+        if(user.getDireccion().length()<5) {
+        	errors.rejectValue("direccion", "Error.signup.address.length");
+        }
         if (user.getName().length() < 5 || user.getName().length() > 24) {
             errors.rejectValue("name", "Error.signup.name.length");
         }

@@ -69,5 +69,7 @@ public class UsersService {
 	public void clear() {
 		usersRepository.deleteAll();
 	}
+
+	
 	
 }

@@ -22,6 +22,29 @@
 						th:errors="*{email}" />
 				</div>
 			</div>
+
+
+
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="direccion">Direccion</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" name="direccion"
+						required="true" /> <span class="text-danger"
+						th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}" />
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="comunidad">Comunidad Autonoma:</label>
+				<div class="col-sm-10">
+					<select id="comunidad" name="comunidad" class="form-control" >
+						<option th:each="comunidad : ${comunidades}" th:text="${comunidad}" th:value="${comunidad}">
+							Comunidad</option>
+					</select>
+				</div>
+			</div>
+			
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="name"><span
 					th:text="#{Signup.name}"></span></label>
@@ -37,8 +60,8 @@
 					th:text="#{Signup.lastName}"></span></label>
 				<div class="col-sm-10">
 					<input type="text" class="form-control" name="lastName"
-						th:placeholder="#{Example.lastName.message}" required="true" />
-					<span class="text-danger" th:if="${#fields.hasErrors('lastName')}"
+						th:placeholder="#{Example.lastName.message}" required="true" /> <span
+						class="text-danger" th:if="${#fields.hasErrors('lastName')}"
 						th:errors="*{lastName}" />
 				</div>
 			</div>

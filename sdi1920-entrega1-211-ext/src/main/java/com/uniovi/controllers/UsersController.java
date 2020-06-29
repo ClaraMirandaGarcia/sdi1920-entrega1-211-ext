@@ -30,6 +30,9 @@ import com.uniovi.validators.SignUpFormValidator;
 
 @Controller
 public class UsersController {
+	
+	private final static String[] COMUNIDADES = {"Asturias", "Madrid", "Andalucia", "Aragón", "Murcia", "Galicia", "Cantabria", "País Vasco", "Navarra", "Cataluña", "Castilla y León", "Castilla La Mancha", "Comunidad Valenciana", "Extremadura", "Baleares", "Canarias"};
+	
 
 	@Autowired
 	private SecurityService securityService;
@@ -46,6 +49,8 @@ public class UsersController {
 
 	@Autowired
 	private SignUpFormValidator signUpFormValidator;
+	
+	
 
 	/**
 	 * Método que borra de la base de datos a determinados
@@ -150,6 +155,7 @@ public class UsersController {
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String signup(Model model) {
 		model.addAttribute("user", new User());
+		model.addAttribute("comunidades", COMUNIDADES);
 		return "signup";
 	}
 
@@ -159,9 +165,12 @@ public class UsersController {
 		if (result.hasErrors()) {
 			return "signup";
 		}
+		
 		user.setRole(rolesService.getRoles()[1]);
+		
 		usersService.addUser(user);
 		securityService.autoLogin(user.getEmail(), user.getPasswordConfirm());
+		
 		return "redirect:home";
 	}
 

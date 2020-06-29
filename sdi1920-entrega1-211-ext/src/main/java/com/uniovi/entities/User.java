@@ -12,6 +12,7 @@ import javax.persistence.Transient;
 
 /**
  * Entidad que representa un usuario
+ * 
  * @author CMG
  *
  */
@@ -29,12 +30,15 @@ public class User {
 	private String role;
 
 	private String password;
+	private String direccion;
 
 	@Transient
 	private String passwordConfirm;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private Set<Post> posts;
+
+	private String comunidad;
 
 	public User(String email, String name, String lastName) {
 		super();
@@ -112,6 +116,22 @@ public class User {
 
 	public void setPosts(Set<Post> posts) {
 		this.posts = posts;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public String getComunidad() {
+		return comunidad;
+	}
+
+	public void setComunidad(String comunidad) {
+		this.comunidad = comunidad;
 	}
 
 }
