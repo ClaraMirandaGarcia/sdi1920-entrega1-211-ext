@@ -11,7 +11,7 @@ public interface UsersRepository extends CrudRepository<User, Long> {
 
 	User findByEmail(String email);
 
-	@Query("SELECT u FROM User u WHERE u.email <> ?1 AND u.role <> 'ROLE_ADMIN'")
+	@Query("SELECT u FROM User u WHERE u.email <> ?1 AND u.role <> 'ROLE_ADMIN' ORDER BY u.comunidad")
 	Page<User> getUsersFor(Pageable pageable, String email);
 
 	@Query("SELECT u FROM User u WHERE u.email <> ?2 AND u.role <> 'ROLE_ADMIN' AND"

@@ -25,7 +25,10 @@
 						<tr>
 							<th th:text="#{Name.message}"></th>
 							<th th:text="#{Email.message}"></th>
-							<th th:text="#{Invitation.message}"></th>
+							<th sec:authorize="hasRole('ROLE_USER')" th:text="#{Invitation.message}"></th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
+							<th>Direccion</th>
+							<th>Comunidad</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -44,6 +47,9 @@
 								id=deleteCheckBox class="deleteBox"
 								th:id="'eliminar'+${user.email}" name="userDelete"
 								th:value="${user.email}" type="checkbox" />Eliminar</td>
+								
+								<td th:text="${user.direccion}"></td>
+								<td th:text="${user.comunidad}"></td>
 						</tr>
 					</tbody>
 				</table>
